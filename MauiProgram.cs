@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using FoundIt.ViewModel;
+using FoundIt.Views;
+using Microsoft.Extensions.Logging;
 
 namespace FoundIt;
 
@@ -18,8 +20,10 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+		builder.Services.AddTransient<Register>();
+        builder.Services.AddTransient<RegisterPageViewModel>();
 
-		return builder.Build();
+        return builder.Build();
 	}
 }
 

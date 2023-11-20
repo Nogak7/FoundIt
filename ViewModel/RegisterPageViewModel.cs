@@ -35,26 +35,51 @@ namespace FoundIt.ViewModel
 				{
 					 firstname = value;
 					 OnPropertyChange();
-					//
+					
 			   	}
 				else
 				{
-					message = Messages.INVALID_NAME;
-					showmessage = true;
+					message = Models.Messages.INVALID_NAME;
+                    Console.WriteLine(message); ;
 				}
 
 				}
 		}
+        public string Password
+        {
+            get => password;
+            set
+            {
+                if (password != value)
+                {
+                    password = value; if (!ValidatePassWord())
+                    {
+                       message = Models.Messages.INVALID_PASSWORD;
+                    }
+                    else
+                    {
 
-        #endregion 
+                    };
+                    OnPropertyChange();
+                }
+            }
+        }
+
+
+        #endregion
 
         #region Helpers
 
-		public bool ValidName(string name)
+        public bool ValidName(string name)
 		{
-			return false;
-		}
-
+            //לפי השגיאה
+            return !(string.IsNullOrEmpty(name) || name.Length < 3);
+        }
+        private bool ValidatePassWord()
+        {
+            //לפי השגיאה
+            return !string.IsNullOrEmpty(Password);
+        }
         #endregion
 
     }

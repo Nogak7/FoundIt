@@ -1,10 +1,14 @@
-﻿namespace FoundIt;
-
-public partial class AppShell : Shell
+﻿using FoundIt.Views;
+namespace FoundIt
 {
-	public AppShell()
+
+	public partial class AppShell : Shell
 	{
-		InitializeComponent();
+		public AppShell()
+		{
+			InitializeComponent();
+			Routing.RegisterRoute("Register", typeof(Register));
+		}
 	}
 }
 
