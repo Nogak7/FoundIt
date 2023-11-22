@@ -11,5 +11,15 @@
            
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+
+        <Entry     
+            
+            Text="{Binding Password}"
+            
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            
+        />
+
     </VerticalStackLayout>
 </ContentPage>

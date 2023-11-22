@@ -8,43 +8,44 @@ using FoundIt.Models;
 
 namespace FoundIt.ViewModel
 {
-	public class RegisterPageViewModel:ViewModel
-	{
+    public class RegisterPageViewModel : ViewModel
+    {
 
         #region Fieldes
 
         private string firstname;
-		private string lastname;
-		private string  email;
-		private string username;
-		private string password;
-		private string confirmpassword;
-		private bool showmessage;
-		private string message;
+        private string lastname;
+        private string email;
+        private string username;
+        private string password;
+        private string confirmpassword;
+        private bool showmessage;
+        private string message;
 
         #endregion
 
         #region Properties
 
-		public string UserName
-		{
-			get => username;
-			set {
+        public string UserName
+        {
+            get => username;
+            set
+            {
 
-				if (username!=value && ValidName(firstname))
-				{
-					 firstname = value;
-					 OnPropertyChange();
-					
-			   	}
-				else
-				{
-					message = Models.Messages.INVALID_NAME;
+                if (username != value && ValidName(firstname))
+                {
+                    firstname = value;
+                    OnPropertyChange();
+
+                }
+                else
+                {
+                    message = Models.Messages.INVALID_NAME;
                     Console.WriteLine(message); ;
-				}
+                }
 
-				}
-		}
+            }
+        }
         public string Password
         {
             get => password;
@@ -52,9 +53,10 @@ namespace FoundIt.ViewModel
             {
                 if (password != value)
                 {
-                    password = value; if (!ValidatePassWord())
+                    password = value; 
+                    if (!ValidatePassWord())
                     {
-                       message = Models.Messages.INVALID_PASSWORD;
+                        message = Models.Messages.INVALID_PASSWORD;
                     }
                     else
                     {
@@ -65,13 +67,27 @@ namespace FoundIt.ViewModel
             }
         }
 
-
+        public string Email { get => email; set { if (email != value) { email = value; OnPropertyChange(); } } }
+        public string FirstName { get => firstname; set { if (firstname != value) { firstname = value; OnPropertyChange(); } } }
+        public string LastName { get => lastname; set { if (lastname != value) { firstname = value; OnPropertyChange(); } } }
+        public string ConfirmPassword
+        {
+            get => confirmpassword;
+            set
+            {
+                if(password != value) 
+                {
+                    password= value;
+                    
+                }
+            }
+        }
         #endregion
 
         #region Helpers
 
         public bool ValidName(string name)
-		{
+        {
             //לפי השגיאה
             return !(string.IsNullOrEmpty(name) || name.Length < 3);
         }
@@ -80,9 +96,12 @@ namespace FoundIt.ViewModel
             //לפי השגיאה
             return !string.IsNullOrEmpty(Password);
         }
+        public bool ValidConfrimPass()
+        {
+
+        }
         #endregion
 
     }
+    
 }
-
-
