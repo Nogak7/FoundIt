@@ -4,22 +4,153 @@
              xmlns:viewModels="clr-namespace:FoundIt.ViewModel"
              x:Class="FoundIt.Views.Register"
              x:DataType="viewModels:RegisterPageViewModel"
-             Title="הרשמה">
+             Title="Register" >
     <VerticalStackLayout>
+
+        <Label 
+            
+            Text="First Name"
+            HorizontalTextAlignment="Center"
+        />
+        
+        <Entry 
+           Text="{Binding FirstName}"
+   
+           VerticalOptions="Center" 
+           HorizontalOptions="Center" 
+           Margin="25"
+           WidthRequest="350"
+        />
+        <Label
+     
+           Text="{Binding Message}"
+           IsVisible="{Binding ShowmessageFirstName}"           
+     
+        />
+
+
+
+        <Label 
+            
+           Text="Last Name"
+           HorizontalTextAlignment="Center"
+        />
+
+        <Entry 
+          Text="{Binding LastName}"
+   
+           VerticalOptions="Center" 
+           HorizontalOptions="Center"
+            Margin="25"
+            WidthRequest="350"
+            
+        />
+
+        <Label
+     
+             Text="{Binding Message}"
+             IsVisible="{Binding ShowmessageLastName}"           
+     
+        />
+
+
+        <Label 
+           Text="UserName"
+           HorizontalTextAlignment="Center"
+        />
+
         <Entry 
             Text="{Binding UserName}"
            
+            Margin="25"
+            WidthRequest="350"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <Label
+            
+           Text="{Binding Message}"
+            IsVisible="{Binding ShowmessageUserName}"           
+            
+        />
 
+
+        <Label 
+            
+           Text="Email"
+           HorizontalTextAlignment="Center"
+        />
+
+        <Entry
+            
+            Text="{Binding Email}"
+            
+            Margin="25"
+            WidthRequest="350"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            
+            />
+        <Label
+     
+           Text="{Binding Message}"
+           IsVisible="{Binding ShowmessageEmail}"           
+     
+        />
+
+        <Label
+        
+            Text="Passord"
+            HorizontalTextAlignment="Center"
+        />
         <Entry     
             
             Text="{Binding Password}"
-            
+            Margin="25"
+            WidthRequest="350"
             VerticalOptions="Center" 
             HorizontalOptions="Center"
             
         />
+
+        <Label
+     
+            Text="{Binding Message}"
+            IsVisible="{Binding ShowmessagePassword}"           
+     
+        />
+
+        <Label
+ 
+           Text="Comfirm Passord"
+           HorizontalTextAlignment="Center"
+        />
+        <Entry
+            Text="{Binding ConfirmPassword}"
+            
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            Margin="25"
+            WidthRequest="350"
+            />
+        <Label
+       
+         Text="{Binding Message}"
+         IsVisible="{Binding ShowmessageConfirmPassword}"           
+     
+        />
+        
+        <Button
+            
+            Text="Register"
+        />
+
+
+
+
+
+
+
+
 
     </VerticalStackLayout>
 </ContentPage>

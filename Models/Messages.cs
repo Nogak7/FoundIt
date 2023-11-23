@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace FoundIt.Models
 {
-	public  class Messages
+	public static class Messages
 	{
 		
 		
