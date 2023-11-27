@@ -26,14 +26,19 @@ namespace FoundIt.ViewModel
 
         #region Properties
 
-        public string Message { get => message; set { if (message != value) { message = value; OnPropertyChange(); } } }
+        public string UserNameMessage { get => message; set { if (message != value) { message = value; OnPropertyChange(); } } }
+        public string PasswordMessage { get => message; set { if (message != value) { message = value; OnPropertyChange(); } } }
+        public string ConfirmPaswordMessage { get => message; set { if (message != value) { message = value; OnPropertyChange(); } } }
 
         public bool ShowmessageUserName { get; set; }
         public bool ShowmessageFirstName { get; set; }
         public bool ShowmessageLastName { get; set; }
         public bool ShowmessageEmail { get; set; }
         public bool ShowmessagePassword { get; set; }
-        public bool ShowmessageConfirmPassword { get => Password != ConfirmPassword; } 
+        public bool ShowmessageConfirmPassword { get => Password != ConfirmPassword; }
+        public string Email { get => email; set { if (email != value) { email = value; OnPropertyChange(); } } }
+        public string FirstName { get => firstname; set { if (firstname != value) { firstname = value; OnPropertyChange(); } } }
+        public string LastName { get => lastname; set { if (lastname != value) { lastname = value; OnPropertyChange(); } } }
         public string UserName
         {
             get => username;
@@ -43,12 +48,12 @@ namespace FoundIt.ViewModel
                 if (username != value)
                 {
                     username = value;
-                    if (ValidName(value))
+                    if (ValidUserName(value))
                         ShowmessageUserName = false;
                     else
                     {
                         ShowmessageUserName = true;
-                        Message = Models.Messages.INVALID_NAME;
+                        UserNameMessage = Models.Messages.INVALID_NAME;
 
                     }
                     OnPropertyChange();
@@ -67,7 +72,7 @@ namespace FoundIt.ViewModel
                     password = value; 
                     if (!ValidatePassWord())
                     {
-                        Message = Models.Messages.INVALID_PASSWORD;
+                        PasswordMessage = Models.Messages.INVALID_PASSWORD;
                         ShowmessagePassword = true;    
                     }
                     else
@@ -81,9 +86,7 @@ namespace FoundIt.ViewModel
             }
         }
 
-        public string Email { get => email; set { if (email != value) { email = value; OnPropertyChange(); } } }
-        public string FirstName { get => firstname; set { if (firstname != value) { firstname = value; OnPropertyChange(); } } }
-        public string LastName { get => lastname; set { if (lastname != value) { firstname = value; OnPropertyChange(); } } }
+       
         public string ConfirmPassword
         {
             get => confirmpassword;
@@ -94,7 +97,8 @@ namespace FoundIt.ViewModel
                   confirmpassword = value;
                     if(Password!=ConfirmPassword) 
                     {
-                        ///
+                        ConfirmPaswordMessage = Models.Messages.UNMATCHING_PASSWORDS;
+
                     }
 
                     
@@ -111,7 +115,7 @@ namespace FoundIt.ViewModel
         
         
         
-        public bool ValidName(string name)
+        public bool ValidUserName(string name)
         {
            
             //לפי השגיאה
@@ -122,7 +126,10 @@ namespace FoundIt.ViewModel
             //לפי השגיאה
             return !string.IsNullOrEmpty(Password);
         }
-       
+       public bool ValidName(string name)
+        {
+            return true;
+        }
         #endregion
 
     }

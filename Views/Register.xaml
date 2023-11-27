@@ -132,9 +132,10 @@
             Margin="25"
             WidthRequest="350"
             />
+        
         <Label
        
-         Text="{Binding Message}"
+         Text="{Binding ConfirmPaswordMessage}"
          IsVisible="{Binding ShowmessageConfirmPassword}"           
      
         />
