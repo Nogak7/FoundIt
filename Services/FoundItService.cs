@@ -6,7 +6,6 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using FoundIt.Models;
-using Windows.System;
 
 namespace FoundIt.Services
 {

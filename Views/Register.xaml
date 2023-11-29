@@ -21,9 +21,9 @@
            Margin="25"
            WidthRequest="350"
         />
-        <Label
+        <Label TextColor="Red"
      
-           Text="{Binding Message}"
+           Text="{Binding FirstNameMessage}"
            IsVisible="{Binding ShowmessageFirstName}"           
      
         />
@@ -46,9 +46,9 @@
             
         />
 
-        <Label
+        <Label TextColor="Red"
      
-             Text="{Binding Message}"
+             Text="{Binding LastNameMessage}"
              IsVisible="{Binding ShowmessageLastName}"           
      
         />
@@ -66,9 +66,9 @@
             WidthRequest="350"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Label
+        <Label TextColor="Red"
             
-           Text="{Binding Message}"
+           Text="{Binding UserNameMessage}"
             IsVisible="{Binding ShowmessageUserName}"           
             
         />
@@ -90,9 +90,9 @@
             HorizontalOptions="Center"
             
             />
-        <Label
+        <Label TextColor="Red"
      
-           Text="{Binding Message}"
+           Text="{Binding EmailMessage}"
            IsVisible="{Binding ShowmessageEmail}"           
      
         />
@@ -112,9 +112,9 @@
             
         />
 
-        <Label
+        <Label TextColor="Red"
      
-            Text="{Binding Message}"
+            Text="{Binding PasswordMessage}"
             IsVisible="{Binding ShowmessagePassword}"           
      
         />
@@ -132,8 +132,8 @@
             Margin="25"
             WidthRequest="350"
             />
-        
-        <Label
+
+        <Label TextColor="Red"
        
          Text="{Binding ConfirmPaswordMessage}"
          IsVisible="{Binding ShowmessageConfirmPassword}"           

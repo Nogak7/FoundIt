@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using FoundIt.Models;
+using System.Text.RegularExpressions;
 
 namespace FoundIt.ViewModel
 {
@@ -26,6 +27,9 @@ namespace FoundIt.ViewModel
 
         #region Properties
 
+        public string EmailMessage { get => message; set { if (message != value) { message = value; OnPropertyChange(); } } }
+        public string FirstNameMessage { get => message; set { if (message != value) { message = value; OnPropertyChange(); } } }
+        public string LastNameMessage { get => message; set { if (message != value) { message = value; OnPropertyChange(); } } }
         public string UserNameMessage { get => message; set { if (message != value) { message = value; OnPropertyChange(); } } }
         public string PasswordMessage { get => message; set { if (message != value) { message = value; OnPropertyChange(); } } }
         public string ConfirmPaswordMessage { get => message; set { if (message != value) { message = value; OnPropertyChange(); } } }
@@ -36,9 +40,28 @@ namespace FoundIt.ViewModel
         public bool ShowmessageEmail { get; set; }
         public bool ShowmessagePassword { get; set; }
         public bool ShowmessageConfirmPassword { get => Password != ConfirmPassword; }
-        public string Email { get => email; set { if (email != value) { email = value; OnPropertyChange(); } } }
         public string FirstName { get => firstname; set { if (firstname != value) { firstname = value; OnPropertyChange(); } } }
         public string LastName { get => lastname; set { if (lastname != value) { lastname = value; OnPropertyChange(); } } }
+        public string Email 
+        { 
+            get => email; 
+            set 
+            { 
+                if (email != value) 
+                {
+                    email = value;
+                    if(IsValidEmail())
+                    {
+                         ShowmessageEmail = false;
+                    }
+                    else
+                    {
+                        ShowmessageEmail = true;
+                        EmailMessage = Models.Messages.INVALID_EMAIL;
+                    }                                    
+                    OnPropertyChange();
+                    OnPropertyChange(nameof(ShowmessageEmail));
+                } } }
         public string UserName
         {
             get => username;
@@ -119,7 +142,7 @@ namespace FoundIt.ViewModel
         {
            
             //לפי השגיאה
-            return !(string.IsNullOrEmpty(name) ||name.Length<3);
+            return !(string.IsNullOrEmpty(name) ||name.Length<3 );
         }
         private bool ValidatePassWord()
         {
@@ -128,7 +151,31 @@ namespace FoundIt.ViewModel
         }
        public bool ValidName(string name)
         {
+            return ((!(string.IsNullOrEmpty(name))) && name.Length > 2 && IsLetters(name));
+        }
+        public bool IsLetters(string name) 
+        {
+            for (int i = 0; i < name.Length; i++)
+            {
+                if (!(name[i]<'A' && name[i]>'z'))
+                    return false;
+            }
             return true;
+        }
+        public bool IsValidEmail()
+        {
+            return IsValidEmailH(Email);
+        }
+        static bool IsValidEmailH(string email)
+        {
+            // Define a regular expression for validating an Email
+            string pattern = @"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$";
+
+            // Create a Regex object
+            Regex regex = new Regex(pattern);
+
+            // Use the IsMatch method to determine if the string matches the regular expression
+            return regex.IsMatch(email);
         }
         #endregion
 
