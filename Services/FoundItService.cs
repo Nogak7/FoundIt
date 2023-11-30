@@ -13,7 +13,7 @@ namespace FoundIt.Services
     {
         readonly HttpClient _httpClient;
         readonly JsonSerializerOptions _serializerOptions;
-        const string URL = @"https://gmdz0mhc-7102.euw.devtunnels.ms/";
+        const string URL = @"https://6hpwkmsp-7102.euw.devtunnels.ms/api/FoundIt/";
 
         public FoundItService()
         {
@@ -32,7 +32,7 @@ namespace FoundIt.Services
 
         }
 
-        public async Task<User> Register(User user)
+        public async Task<bool> RegisterAsync(User user)
         {
             try
             {
@@ -47,15 +47,15 @@ namespace FoundIt.Services
                             jsonContent = await response.Content.ReadAsStringAsync();
                             User u = JsonSerializer.Deserialize<User>(jsonContent, _serializerOptions);
                             await Task.Delay(2000);
-                            return u;
+                            return true;
                         }
                     case (HttpStatusCode.Conflict):
                         {
-                            return null;
+                            return false;
                         }
                     case (HttpStatusCode.BadRequest):
                         {
-                            return null;
+                            return false;
                         }
                 }
 
@@ -64,7 +64,7 @@ namespace FoundIt.Services
             {
                 Console.WriteLine(ex.Message);
             }
-            return null;
+            return false;
             
         }
     }

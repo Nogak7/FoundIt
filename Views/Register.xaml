@@ -139,8 +139,14 @@
          IsVisible="{Binding ShowmessageConfirmPassword}"           
      
         />
+        <Label TextColor="Red"
+       
+         Text="{Binding RegisterFailedMessage}"
+         IsVisible="{Binding ShowmessageRegisterFailed}"           
+     
+        />
         
-        <Button
+        <Button Command="{Binding RegisterCommand}"
             
             Text="Register"
         />

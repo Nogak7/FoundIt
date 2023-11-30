@@ -7,8 +7,9 @@ namespace FoundIt
 		public AppShell()
 		{
 			InitializeComponent();
-			Routing.RegisterRoute("Register", typeof(Register));
-		}
+			
+            Routing.RegisterRoute("LogIn", typeof(Login));
+        }
 	}
 }
 

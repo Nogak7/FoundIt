@@ -1,4 +1,5 @@
-﻿using FoundIt.ViewModel;
+﻿using FoundIt.Services;
+using FoundIt.ViewModel;
 using FoundIt.Views;
 using Microsoft.Extensions.Logging;
 
@@ -22,6 +23,7 @@ public static class MauiProgram
 #endif
 		builder.Services.AddTransient<Register>();
         builder.Services.AddTransient<RegisterPageViewModel>();
+		builder.Services.AddSingleton<FoundItService>();
 
         return builder.Build();
 	}

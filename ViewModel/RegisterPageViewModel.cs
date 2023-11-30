@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using FoundIt.Models;
 using System.Text.RegularExpressions;
+using System.Windows.Input;
+using FoundIt.Services;
 
 namespace FoundIt.ViewModel
 {
     public class RegisterPageViewModel : ViewModel
     {
+        
 
         #region Fieldes
 
@@ -26,7 +29,7 @@ namespace FoundIt.ViewModel
         #endregion
 
         #region Properties
-
+        public string RegisterFailedMessage { get => message; set { if (message != value) { message = value; OnPropertyChange(); } } }
         public string EmailMessage { get => message; set { if (message != value) { message = value; OnPropertyChange(); } } }
         public string FirstNameMessage { get => message; set { if (message != value) { message = value; OnPropertyChange(); } } }
         public string LastNameMessage { get => message; set { if (message != value) { message = value; OnPropertyChange(); } } }
@@ -34,6 +37,7 @@ namespace FoundIt.ViewModel
         public string PasswordMessage { get => message; set { if (message != value) { message = value; OnPropertyChange(); } } }
         public string ConfirmPaswordMessage { get => message; set { if (message != value) { message = value; OnPropertyChange(); } } }
 
+        public bool ShowmessageRegisterFailed { get; set; }
         public bool ShowmessageUserName { get; set; }
         public bool ShowmessageFirstName { get; set; }
         public bool ShowmessageLastName { get; set; }
@@ -178,6 +182,31 @@ namespace FoundIt.ViewModel
             return regex.IsMatch(email);
         }
         #endregion
+        
+        public ICommand RegisterCommand { get; set; }
+        public RegisterPageViewModel(FoundItService service)
+        {
+            RegisterCommand = new Command(async () =>
+            {
+                try
+                {
+                    var response = await service.RegisterAsync(new User() { FirstName = FirstName, Email = Email, LastName = LastName, UserName = UserName, Pasword = Password });
+                    if (response)
+                    {
+                        await AppShell.Current.GoToAsync("LogIn");
+                    }
+                    else
+                    {
+                        ShowmessageRegisterFailed = true;
+                        RegisterFailedMessage = Models.Messages.REGISTER_FAILED;
+                    }
+                    OnPropertyChange(nameof(ShowmessageRegisterFailed));
+                }
+                catch (Exception ex) { }
+
+            });
+            
+        }
 
     }
     
