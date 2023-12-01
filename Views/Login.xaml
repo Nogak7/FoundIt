@@ -2,11 +2,43 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FoundIt.Views.Login"
+             xmlns:viewModels="clr-namespace:FoundIt.ViewModel"
+            x:DataType="viewModels:LoginPageViewModel"
              Title="Login">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
+        <Label
+            Text="UserName"
+            />
+        <Entry
+            Text="{Binding UserName}"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            HorizontalOptions="Center" 
+            Margin="25"
+            WidthRequest="350"
+            
+            />
+        <Label
+            IsVisible="{Binding ShowmessageUserName}"
+            Text="{Binding UserNameMessage}"
+            />
+        <Label
+           Text="Password"
+          />
+        <Entry
+            Text="{Binding Password}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" 
+            Margin="25"
+            WidthRequest="350"
+      
+           />
+          <Label
+            IsVisible="{Binding ShowmessagePassword}"
+            Text="{Binding PasswordMessage}"
+          />
+        <Button Command="{Binding LogInCommand}"
+          Text="Log In"  
+            
+            />
     </VerticalStackLayout>
 </ContentPage>
