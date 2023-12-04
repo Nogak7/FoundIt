@@ -43,18 +43,17 @@ namespace FoundIt.ViewModel
         {
              LogInCommand = new Command(async () =>
               {
-                  // Change this to fit Log   in
                 try
                 {
-                    var response = await service.RegisterAsync(new User() {  UserName = UserName, Pasword = Password }); // chane&create
+                    var response = await service.LogInAsync(UserName, Password); 
                     if (response)
                     {
-                        await AppShell.Current.GoToAsync("LogIn");
+                        await AppShell.Current.GoToAsync("HomePage");
                     }
                     else
                     {
                         ShowmessageLogInFailed = true;
-                        LogInFailedMessage = Models.Messages.REGISTER_FAILED; // change o right message
+                        LogInFailedMessage = Models.Messages.LOGIN_FAILED; 
                     }
                     OnPropertyChange(nameof(ShowmessageLogInFailed));
                 }

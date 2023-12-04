@@ -4,7 +4,7 @@
              x:Class="FoundIt.Views.Login"
              xmlns:viewModels="clr-namespace:FoundIt.ViewModel"
             x:DataType="viewModels:LoginPageViewModel"
-             Title="Login">
+             Title="LogIn">
     <VerticalStackLayout>
         <Label
             Text="UserName"
@@ -37,8 +37,8 @@
             Text="{Binding PasswordMessage}"
           />
         <Button Command="{Binding LogInCommand}"
-          Text="Log In"  
-            
-            />
+      Text="Log In"  />
+
+
     </VerticalStackLayout>
 </ContentPage>

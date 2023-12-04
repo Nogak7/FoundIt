@@ -66,15 +66,18 @@
 	  <None Remove="ViewModel\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="ViewModel\" />
-	</ItemGroup>
-	<ItemGroup>
+	  <Compile Update="Views\Login.xaml.cs">
+	    <DependentUpon>LogIn.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Register.xaml.cs">
 	    <DependentUpon>Register.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
-	  <MauiXaml Update="Views\Login.xaml">
+	  <MauiXaml Update="Views\HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\LogIn.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Register.xaml">

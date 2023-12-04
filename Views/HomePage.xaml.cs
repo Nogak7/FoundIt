@@ -2,9 +2,9 @@ using FoundIt.ViewModel;
 
 namespace FoundIt.Views;
 
-public partial class Login : ContentPage
+public partial class HomePage : ContentPage
 {
-	public Login(LoginPageViewModel vm)
+	public HomePage( HomePageViewModel vm)
 	{
 		BindingContext = vm;
 		InitializeComponent();

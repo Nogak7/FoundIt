@@ -8,7 +8,8 @@ namespace FoundIt
 		{
 			InitializeComponent();
 			
-            Routing.RegisterRoute("LogIn", typeof(Login));
+          //  Routing.RegisterRoute("LogIn", typeof(Login));
+            Routing.RegisterRoute("HomePage", typeof(HomePage));
         }
 	}
 }

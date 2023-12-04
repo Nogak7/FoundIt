@@ -13,7 +13,7 @@ namespace FoundIt.Services
     {
         readonly HttpClient _httpClient;
         readonly JsonSerializerOptions _serializerOptions;
-        const string URL = @"https://6hpwkmsp-7102.euw.devtunnels.ms/api/FoundIt/";
+        const string URL = @"https://xmxw3g3j-7102.euw.devtunnels.ms/api/FoundIt/";
 
         public FoundItService()
         {
@@ -67,5 +67,44 @@ namespace FoundIt.Services
             return false;
             
         }
+
+        public async Task<bool> LogInAsync(string username, string password)
+        {
+            try
+            {
+                User user = new User() { UserName = username, Pasword = password};
+                var jsonContent = JsonSerializer.Serialize(user, _serializerOptions);
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync($"{URL}LogIn", content);
+
+                switch (response.StatusCode)
+                {
+                    case (HttpStatusCode.OK):
+                        {
+                            jsonContent = await response.Content.ReadAsStringAsync();
+                            User u = JsonSerializer.Deserialize<User>(jsonContent, _serializerOptions);
+                            await Task.Delay(2000);
+                            return true;
+                        }
+                    case (HttpStatusCode.Conflict):
+                        {
+                            return false;
+                        }
+                    case (HttpStatusCode.BadRequest):
+                        {
+                            return false;
+                        }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+
+        }
+
+
     }
 }

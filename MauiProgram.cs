@@ -21,7 +21,12 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
-		builder.Services.AddTransient<Register>();
+
+        builder.Services.AddTransient<Login>();
+        builder.Services.AddTransient<LoginPageViewModel>(); 
+		builder.Services.AddTransient<HomePage>();
+        builder.Services.AddTransient<HomePageViewModel>();
+        builder.Services.AddTransient<Register>();
         builder.Services.AddTransient<RegisterPageViewModel>();
 		builder.Services.AddSingleton<FoundItService>();
 
