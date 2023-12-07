@@ -72,7 +72,7 @@ namespace FoundIt.Services
         {
             try
             {
-                User user = new User() { UserName = username, Pasword = password};
+                LoginDto user = new LoginDto() { UserName = username, Password = password};
                 var jsonContent = JsonSerializer.Serialize(user, _serializerOptions);
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync($"{URL}LogIn", content);
