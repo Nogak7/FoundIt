@@ -13,7 +13,7 @@ namespace FoundIt.Services
     {
         readonly HttpClient _httpClient;
         readonly JsonSerializerOptions _serializerOptions;
-        const string URL = @"https://xmxw3g3j-7102.euw.devtunnels.ms/api/FoundIt/";
+        const string URL = @"https://l19bfwsb-7102.euw.devtunnels.ms/api/FoundIt/";
 
         public FoundItService()
         {
@@ -72,7 +72,7 @@ namespace FoundIt.Services
         {
             try
             {
-                LoginDto user = new LoginDto() { UserName = username, Password = password};
+                LoginDto user = new LoginDto() { UserName = username, Pasword = password};
                 var jsonContent = JsonSerializer.Serialize(user, _serializerOptions);
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync($"{URL}LogIn", content);
