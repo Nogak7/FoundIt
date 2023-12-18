@@ -12,6 +12,7 @@ using FoundIt.Services;
 
 namespace FoundIt.ViewModel
 {
+    //
 
     public class LoginPageViewModel : ViewModel
 	{
