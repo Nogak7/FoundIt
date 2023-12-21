@@ -8,6 +8,8 @@ using FoundIt.Models;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using FoundIt.Services;
+using FoundIt.ViewModel;
+
 
 namespace FoundIt.ViewModel
 {
@@ -190,9 +192,11 @@ namespace FoundIt.ViewModel
             {
                 try
                 {
+
                     var response = await service.RegisterAsync(new User() { FirstName = FirstName, Email = Email, LastName = LastName, UserName = UserName, Pasword = Password });
                     if (response)
                     {
+                       
                         await AppShell.Current.GoToAsync("LogIn");
                     }
                     else
