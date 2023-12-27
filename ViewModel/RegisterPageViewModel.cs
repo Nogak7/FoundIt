@@ -10,6 +10,7 @@ using System.Windows.Input;
 using FoundIt.Services;
 using FoundIt.ViewModel;
 
+using FoundIt.Views;
 
 namespace FoundIt.ViewModel
 {
@@ -63,7 +64,7 @@ namespace FoundIt.ViewModel
                     else
                     {
                         ShowmessageEmail = true;
-                        EmailMessage = Models.Messages.INVALID_EMAIL;
+                        EmailMessage = Models.ErrorMessages.INVALID_EMAIL;
                     }                                    
                     OnPropertyChange();
                     OnPropertyChange(nameof(ShowmessageEmail));
@@ -82,7 +83,7 @@ namespace FoundIt.ViewModel
                     else
                     {
                         ShowmessageUserName = true;
-                        UserNameMessage = Models.Messages.INVALID_NAME;
+                        UserNameMessage = Models.ErrorMessages.INVALID_NAME;
 
                     }
                     OnPropertyChange();
@@ -101,7 +102,7 @@ namespace FoundIt.ViewModel
                     password = value; 
                     if (!ValidatePassWord())
                     {
-                        PasswordMessage = Models.Messages.INVALID_PASSWORD;
+                        PasswordMessage = Models.ErrorMessages.INVALID_PASSWORD;
                         ShowmessagePassword = true;    
                     }
                     else
@@ -126,7 +127,7 @@ namespace FoundIt.ViewModel
                   confirmpassword = value;
                     if(Password!=ConfirmPassword) 
                     {
-                        ConfirmPaswordMessage = Models.Messages.UNMATCHING_PASSWORDS;
+                        ConfirmPaswordMessage = Models.ErrorMessages.UNMATCHING_PASSWORDS;
 
                     }
 
@@ -192,17 +193,24 @@ namespace FoundIt.ViewModel
             {
                 try
                 {
-
+                    AlertsViewModel vm = new AlertsViewModel() { AlertMessage = "Connecting to server....", AlertShowMessage = true };
+                    await Shell.Current.Navigation.PushModalAsync(new Alerts(vm));
                     var response = await service.RegisterAsync(new User() { FirstName = FirstName, Email = Email, LastName = LastName, UserName = UserName, Pasword = Password });
+              
                     if (response)
                     {
-                       
+                        vm.AlertShowMessage =false;
+                        vm.AlertMessage = "Register Succeeded";
+                        await Task.Delay(1500);
+                        await Shell.Current.Navigation.PopModalAsync();
                         await AppShell.Current.GoToAsync("LogIn");
                     }
                     else
                     {
-                        ShowmessageRegisterFailed = true;
-                        RegisterFailedMessage = Models.Messages.REGISTER_FAILED;
+                        vm.AlertShowMessage = false;
+                        vm.AlertMessage = ErrorMessages.REGISTER_FAILED;
+                        await Task.Delay(1500);
+                        await Shell.Current.Navigation.PopAsync();
                     }
                     OnPropertyChange(nameof(ShowmessageRegisterFailed));
                 }

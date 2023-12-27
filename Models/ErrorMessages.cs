@@ -8,7 +8,7 @@ using System.ComponentModel;
 namespace FoundIt.Models;
 
 
-public static class Messages
+public static class ErrorMessages
 {
 
 

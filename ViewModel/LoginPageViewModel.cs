@@ -9,6 +9,7 @@ using FoundIt.Models;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using FoundIt.Services;
+using FoundIt.Views;
 
 namespace FoundIt.ViewModel
 {
@@ -16,7 +17,7 @@ namespace FoundIt.ViewModel
 
     public class LoginPageViewModel : ViewModel
 	{
-		public event PropertyChangedEventHandler PropertyChanged;
+		
         public ICommand LogInCommand { get; set; }
         private string username;
 		private string password;
@@ -46,15 +47,23 @@ namespace FoundIt.ViewModel
               {
                 try
                 {
-                    var response = await service.LogInAsync(UserName, Password); 
+                      AlertsViewModel vm = new AlertsViewModel() { AlertMessage = "Connecting to server....", AlertShowMessage = true };
+                      await Shell.Current.Navigation.PushModalAsync(new Alerts(vm));
+                      var response = await service.LogInAsync(UserName, Password); 
                     if (response)
                     {
-                        await AppShell.Current.GoToAsync("HomePage");
+                          vm.AlertShowMessage = false;
+                          vm.AlertMessage = "Register Succeeded";
+                          await Task.Delay(1500);
+                          await Shell.Current.Navigation.PopModalAsync();
+                          await AppShell.Current.GoToAsync("HomePage");
                     }
                     else
                     {
-                        ShowmessageLogInFailed = true;
-                        LogInFailedMessage = Models.Messages.LOGIN_FAILED; 
+                          vm.AlertShowMessage = false;
+                          vm.AlertMessage = "Log In failed, please try again ";
+                          await Task.Delay(1500);
+                          await Shell.Current.Navigation.PopAsync();
                     }
                     OnPropertyChange(nameof(ShowmessageLogInFailed));
                 }

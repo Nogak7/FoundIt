@@ -29,6 +29,8 @@ public static class MauiProgram
         builder.Services.AddTransient<Register>();
         builder.Services.AddTransient<RegisterPageViewModel>();
 		builder.Services.AddSingleton<FoundItService>();
+        builder.Services.AddTransient<WelcomePageViewModel>();
+   
 
         return builder.Build();
 	}

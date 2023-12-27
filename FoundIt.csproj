@@ -66,6 +66,9 @@
 	  <None Remove="ViewModel\" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Compile Update="Views\Alerts.xaml.cs">
+	    <DependentUpon>Alerts.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Login.xaml.cs">
 	    <DependentUpon>LogIn.xaml</DependentUpon>
 	  </Compile>
@@ -74,7 +77,7 @@
 	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
-	  <MauiXaml Update="Views\Alarts.xaml">
+	  <MauiXaml Update="Views\Alerts.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\HomePage.xaml">
@@ -90,6 +93,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Register.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\WelcomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
