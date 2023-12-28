@@ -9,6 +9,7 @@ using FoundIt.Models;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using FoundIt.Services;
+using System.Text.Json;
 using FoundIt.Views;
 
 namespace FoundIt.ViewModel
@@ -60,6 +61,8 @@ namespace FoundIt.ViewModel
                     }
                     else
                     {
+                          LoginDto user = new LoginDto(UserName , Password);
+                          await SecureStorage.Default.SetAsync("user", JsonSerializer.Serialize(user));
                           vm.AlertShowMessage = false;
                           vm.AlertMessage = "Log In failed, please try again ";
                           await Task.Delay(1500);

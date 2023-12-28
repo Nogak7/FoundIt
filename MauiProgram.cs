@@ -29,10 +29,13 @@ public static class MauiProgram
         builder.Services.AddTransient<Register>();
         builder.Services.AddTransient<RegisterPageViewModel>();
 		builder.Services.AddSingleton<FoundItService>();
-        builder.Services.AddTransient<WelcomePageViewModel>();
-   
+		builder.Services.AddTransient<WelcomePageViewModel>();
+		builder.Services.AddTransient<WelcomePage>();
+		builder.Services.AddSingleton<Alerts>();
+		builder.Services.AddSingleton<AlertsViewModel>();
 
-        return builder.Build();
+
+		return builder.Build();
 	}
 }
 

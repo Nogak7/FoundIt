@@ -1,12 +1,38 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:FoundIt.ViewModel"
+             x:DataType="viewModels:WelcomePageViewModel"
              x:Class="FoundIt.Views.WelcomePage"
              Title="WelcomePage">
-    <VerticalStackLayout>
+    <VerticalStackLayout Margin="110" >
         <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            Text="Welcome to "
+            FontSize="18"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" 
+            
+            />
+        <Label 
+           Text=" Found It!"
+           FontSize="33"
+           VerticalOptions="Center"
+           HorizontalOptions="Center" 
+           Margin="10"
+     
+     />
+
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="14" Margin="5">
+            <Button
+                Text="Log In"
+                Command="{Binding LogInCommand }"
+                
+                />
+            <Button
+                Text="Register"
+                Command="{Binding RegisterCommand}"
+                />
+
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
