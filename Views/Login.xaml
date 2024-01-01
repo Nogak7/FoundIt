@@ -5,8 +5,11 @@
              xmlns:viewModels="clr-namespace:FoundIt.ViewModel"
             x:DataType="viewModels:LoginPageViewModel"
              Title="LogIn">
-    <VerticalStackLayout>
+    <VerticalStackLayout  VerticalOptions="Center">
+       
         <Label
+           
+            HorizontalOptions="Center"
             Text="UserName"
             />
         <Entry
@@ -14,7 +17,7 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" 
             Margin="25"
-            WidthRequest="350"
+            WidthRequest="250"
             
             />
         <Label
@@ -22,6 +25,7 @@
             Text="{Binding UserNameMessage}"
             />
         <Label
+            HorizontalOptions="Center"
            Text="Password"
           />
         <Entry
@@ -29,14 +33,16 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" 
             Margin="25"
-            WidthRequest="350"
+            WidthRequest="250"
       
            />
           <Label
             IsVisible="{Binding ShowmessagePassword}"
             Text="{Binding PasswordMessage}"
-          />
-        <Button Command="{Binding LogInCommand}"
+          /> 
+        
+      
+        <Button WidthRequest="100" Command="{Binding LogInCommand}"
       Text="Log In"  />
 
 

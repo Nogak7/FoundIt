@@ -5,8 +5,22 @@
              x:Class="FoundIt.Views.Register"
              x:DataType="viewModels:RegisterPageViewModel"
              Title="Register" >
-    <VerticalStackLayout>
+   
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="input" TargetType="Entry">
+               
+                <Setter Property="WidthRequest" Value="250"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
 
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <VerticalStackLayout >
+        <Label
+            HeightRequest="70"
+            />
         <Label 
             
             Text="First Name"
@@ -14,12 +28,8 @@
         />
         
         <Entry 
-           Text="{Binding FirstName}"
-   
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" 
-           Margin="25"
-           WidthRequest="350"
+           Text="{Binding FirstName}" 
+           Style="{StaticResource input }"
         />
         <Label TextColor="Red"
      
@@ -38,11 +48,7 @@
 
         <Entry 
           Text="{Binding LastName}"
-   
-           VerticalOptions="Center" 
-           HorizontalOptions="Center"
-            Margin="25"
-            WidthRequest="350"
+          Style="{StaticResource input }"
             
         />
 
@@ -61,11 +67,7 @@
 
         <Entry 
             Text="{Binding UserName}"
-           
-            Margin="25"
-            WidthRequest="350"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            Style="{StaticResource input }" />
         <Label TextColor="Red"
             
            Text="{Binding UserNameMessage}"
@@ -83,11 +85,7 @@
         <Entry
             
             Text="{Binding Email}"
-            
-            Margin="25"
-            WidthRequest="350"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center"
+           Style="{StaticResource input }"
             
             />
         <Label TextColor="Red"
@@ -105,10 +103,7 @@
         <Entry     
             
             Text="{Binding Password}"
-            Margin="25"
-            WidthRequest="350"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center"
+            Style="{StaticResource input }"
             
         />
 
@@ -125,12 +120,8 @@
            HorizontalTextAlignment="Center"
         />
         <Entry
-            Text="{Binding ConfirmPassword}"
-            
-            VerticalOptions="Center" 
-            HorizontalOptions="Center"
-            Margin="25"
-            WidthRequest="350"
+            Text="{Binding ConfirmPassword}"           
+            Style="{StaticResource input }"
             />
 
         <Label TextColor="Red"
@@ -147,7 +138,7 @@
         />
         
         <Button Command="{Binding RegisterCommand}"
-            
+            WidthRequest="100"
             Text="Register"
         />
 

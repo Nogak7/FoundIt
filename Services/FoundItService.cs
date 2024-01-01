@@ -13,7 +13,7 @@ namespace FoundIt.Services
     {
         readonly HttpClient _httpClient;
         readonly JsonSerializerOptions _serializerOptions;
-        const string URL = @"https://h2t12kr4-7102.uks1.devtunnels.ms/api/FoundIt/";
+        const string URL = @"https://3v6ps2xw-7102.uks1.devtunnels.ms/api/FoundIt/";
 
         public FoundItService()
         {
