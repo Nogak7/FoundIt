@@ -13,6 +13,6 @@ namespace FoundIt.Models
         public List<User> GroupMembers { get; set; }
         public string Location { get; set; }
 
-
+        
     }
 }
