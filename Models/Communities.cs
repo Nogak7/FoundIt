@@ -10,7 +10,7 @@ namespace FoundIt.Models
     {
         public string GroupName { get; set; }
         public User Manager {  get; set; }
-        public List<User> GroupMembers { get; set; }
+        public List<GroupMember> GroupMembers { get; set; }
         public string Location { get; set; }
 
         

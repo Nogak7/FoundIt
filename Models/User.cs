@@ -15,8 +15,9 @@ namespace FoundIt.Models
 
         public string Pasword { get; set; } 
 
-       
         public string UserName { get; set; } 
+
+        public List<Communities> Communities { get; set; }
         public User()
         {
             
