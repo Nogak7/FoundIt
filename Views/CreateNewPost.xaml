@@ -1,12 +1,160 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:FoundIt.ViewModel"
              x:Class="FoundIt.Views.CreateNewPost"
-             Title="CreateNewPost">
-    <VerticalStackLayout>
+              x:DataType="viewModels:CreateNewPostViewModel"
+           >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="input" TargetType="Entry">
+
+                <Setter Property="WidthRequest" Value="250"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <VerticalStackLayout >
         <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+     Text="CREATE NEW POST"
+     VerticalOptions="Center" 
+     HorizontalOptions="Center" />
+        <Label
+         HeightRequest="70"
+         />
+        <Label 
+         
+         Text="First Name"
+         HorizontalTextAlignment="Center"
+     />
+
+        <Entry 
+        Text="{Binding FirstName}" 
+        Style="{StaticResource input }"
+     />
+        <Label TextColor="Red"
+  
+        Text="{Binding FirstNameMessage}"
+        IsVisible="{Binding ShowmessageFirstName}"           
+  
+     />
+
+
+
+        <Label 
+         
+        Text="Last Name"
+        HorizontalTextAlignment="Center"
+     />
+
+        <Entry 
+       Text="{Binding LastName}"
+       Style="{StaticResource input }"
+         
+     />
+
+        <Label TextColor="Red"
+  
+          Text="{Binding LastNameMessage}"
+          IsVisible="{Binding ShowmessageLastName}"           
+  
+     />
+
+
+        <Label 
+        Text="UserName"
+        HorizontalTextAlignment="Center"
+     />
+
+        <Entry 
+         Text="{Binding UserName}"
+         Style="{StaticResource input }" />
+        <Label TextColor="Red"
+         
+        Text="{Binding UserNameMessage}"
+         IsVisible="{Binding ShowmessageUserName}"           
+         
+     />
+
+
+        <Label 
+         
+        Text="Email"
+        HorizontalTextAlignment="Center"
+     />
+
+        <Entry
+         
+         Text="{Binding Email}"
+        Style="{StaticResource input }"
+         
+         />
+        <Label TextColor="Red"
+  
+        Text="{Binding EmailMessage}"
+        IsVisible="{Binding ShowmessageEmail}"           
+  
+     />
+
+        <Label
+     
+         Text="Passord"
+         HorizontalTextAlignment="Center"
+     />
+        <Entry     
+         
+         Text="{Binding Password}"
+         Style="{StaticResource input }"
+         
+     />
+
+        <Label TextColor="Red"
+  
+         Text="{Binding PasswordMessage}"
+         IsVisible="{Binding ShowmessagePassword}"           
+  
+     />
+
+        <Label
+ 
+        Text="Comfirm Passord"
+        HorizontalTextAlignment="Center"
+     />
+        <Entry
+         Text="{Binding ConfirmPassword}"           
+         Style="{StaticResource input }"
+         />
+
+        <Label TextColor="Red"
+    
+      Text="{Binding ConfirmPaswordMessage}"
+      IsVisible="{Binding ShowmessageConfirmPassword}"           
+  
+     />
+        <Label TextColor="Red"
+    
+      Text="{Binding RegisterFailedMessage}"
+      IsVisible="{Binding ShowmessageRegisterFailed}"           
+  
+     />
+
+        <Button Command="{Binding RegisterCommand}"
+         WidthRequest="100"
+         Text="Register"
+     />
+
+
+
+
+
+
+
+
+
     </VerticalStackLayout>
+   
 </ContentPage>

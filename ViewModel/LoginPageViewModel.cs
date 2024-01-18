@@ -50,19 +50,19 @@ namespace FoundIt.ViewModel
                 {
                       AlertsViewModel vm = new AlertsViewModel() { AlertMessage = "Connecting to server....", AlertShowMessage = true };
                       await Shell.Current.Navigation.PushModalAsync(new Alerts(vm));
-                      var response = await service.LogInAsync(UserName, Password); 
-                    if (response)
+                      var user = await service.LogInAsync(UserName, Password); 
+                    if (user != null)
                     {
                           vm.AlertShowMessage = false;
-                          vm.AlertMessage = "Register Succeeded";
+                          vm.AlertMessage = "Login Succeeded";
                           await Task.Delay(1500);
                           await Shell.Current.Navigation.PopModalAsync();
+                          ((App)Application.Current).User = user;
                           await AppShell.Current.GoToAsync("HomePage");
                     }
                     else
                     {
-                          LoginDto user = new LoginDto(UserName , Password);
-                          await SecureStorage.Default.SetAsync("user", JsonSerializer.Serialize(user));
+                          
                           vm.AlertShowMessage = false;
                           vm.AlertMessage = "Log In failed, please try again ";
                           await Task.Delay(1500);

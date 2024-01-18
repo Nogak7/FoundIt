@@ -17,6 +17,8 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
+    
+    
     <VerticalStackLayout >
         <Label
             HeightRequest="70"

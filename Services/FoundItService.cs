@@ -68,7 +68,7 @@ namespace FoundIt.Services
             
         }
 
-        public async Task<bool> LogInAsync(string username, string password)
+        public async Task<User> LogInAsync(string username, string password)
         {
             try
             {
@@ -84,15 +84,16 @@ namespace FoundIt.Services
                             jsonContent = await response.Content.ReadAsStringAsync();
                             User u = JsonSerializer.Deserialize<User>(jsonContent, _serializerOptions);
                             await Task.Delay(2000);
-                            return true;
+                            return u;
+                                
                         }
                     case (HttpStatusCode.Conflict):
                         {
-                            return false;
+                            return null;
                         }
                     case (HttpStatusCode.BadRequest):
                         {
-                            return false;
+                            return null;
                         }
                 }
 
@@ -101,7 +102,7 @@ namespace FoundIt.Services
             {
                 Console.WriteLine(ex.Message);
             }
-            return false;
+            return null;
 
         }
 
