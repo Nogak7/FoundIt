@@ -17,11 +17,11 @@ namespace FoundIt.ViewModel
         private bool founditem;
         private string picture;
         private User creator;
-        private DateTime creatingdate;
         private string location;
         private PostStatus status;
 
 
+        public bool ShowmessageUploudNewPostFailed { get; set; }
 
 
         public string Theme { get => theme; set { if (theme != value) { theme = value; OnPropertyChange(); } } }
@@ -29,28 +29,30 @@ namespace FoundIt.ViewModel
         public bool FoundItem { get => founditem; set { if (founditem != value) { founditem = value; OnPropertyChange(); } } }
         public string Picture { get => picture; set { if (picture != value) { picture = value; OnPropertyChange(); } } }
         public User Creator { get => creator; set { if (creator != value) { creator = value; OnPropertyChange(); } } }
-        public DateTime CreatingDate { get => creatingdate; set { if (creatingdate != value) { creatingdate = value; OnPropertyChange(); } } }
         public string Location { get => location; set { if (location != value) { location = value; OnPropertyChange(); } } }
         public PostStatus Status { get => status; set { if (status != value) { status = value; OnPropertyChange(); } } }
 
 
-        public ICommand CreatePostCommand { get; set; }
+        public ICommand CreateNewPostCommand { get; set; }
         public CreateNewPostViewModel(FoundItService service)
         {
-            CreatePostCommand = new Command(async () =>
+            CreateNewPostCommand = new Command(async () =>
             {
                 try
                 {
                     AlertsViewModel vm = new AlertsViewModel() { AlertMessage = "Uploading Post....", AlertShowMessage = true };
                     await Shell.Current.Navigation.PushModalAsync(new Alerts(vm));
-                    var response = await service.RegisterAsync(new Post() { Theme = Theme, Context = Context, FoundItem = FoundItem, Picture = Picture, Creator = Creator, CreatingDate = CreatingDate, Location = Location, Status = Status };
+                    App currentApp = (App)Application.Current;
+                    Post newPost = new Post()
+                    { Theme = Theme, Context = Context, FoundItem = FoundItem, Picture = Picture, Creator = currentApp.User, CreatingDate = DateTime.Now, Location = Location, Status = currentApp.PostStatuses.Find(x => x.Id == 1) };
+                    var response = await service.CreateNewPostAsync(newPost);
                     if (response)
                     {
                         vm.AlertShowMessage = false;
-                        vm.AlertMessage = "Register Succeeded";
+                        vm.AlertMessage = "Post Uploud Succeeded";
                         await Task.Delay(1500);
                         await Shell.Current.Navigation.PopModalAsync();
-                        await AppShell.Current.GoToAsync("LogIn");
+                        await AppShell.Current.GoToAsync("HomePage");
                     }
                     else
                     {
@@ -59,7 +61,7 @@ namespace FoundIt.ViewModel
                         await Task.Delay(1500);
                         await Shell.Current.Navigation.PopAsync();
                     }
-                    OnPropertyChange(nameof(ShowmessageRegisterFailed));
+                    OnPropertyChange(nameof(ShowmessageUploudNewPostFailed));
                 }
                 catch (Exception ex) { }
 

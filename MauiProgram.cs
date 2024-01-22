@@ -33,6 +33,7 @@ public static class MauiProgram
 		builder.Services.AddTransient<WelcomePage>();
 		builder.Services.AddSingleton<Alerts>();
 		builder.Services.AddSingleton<AlertsViewModel>();
+		builder.Services.AddSingleton<CreateNewPost>();
 
 
 		return builder.Build();

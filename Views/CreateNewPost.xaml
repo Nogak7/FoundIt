@@ -28,121 +28,50 @@
          />
         <Label 
          
-         Text="First Name"
+         Text="Theme"
          HorizontalTextAlignment="Center"
      />
 
         <Entry 
-        Text="{Binding FirstName}" 
+        Text="{Binding Theme}" 
         Style="{StaticResource input }"
      />
-        <Label TextColor="Red"
-  
-        Text="{Binding FirstNameMessage}"
-        IsVisible="{Binding ShowmessageFirstName}"           
-  
-     />
+        
 
 
 
         <Label 
          
-        Text="Last Name"
+        Text="Context"
         HorizontalTextAlignment="Center"
      />
 
         <Entry 
-       Text="{Binding LastName}"
+       Text="{Binding Context}"
        Style="{StaticResource input }"
          
      />
 
-        <Label TextColor="Red"
-  
-          Text="{Binding LastNameMessage}"
-          IsVisible="{Binding ShowmessageLastName}"           
-  
-     />
+        <HorizontalStackLayout>
+            <Label 
+   Text="if you found this item check this box, if this is an item that you lost leave it empty "
+   HorizontalTextAlignment="Center"
+/>
+            <CheckBox
+       
+       IsChecked="{Binding FoundItem}"
+       
+       
+       />
+        </HorizontalStackLayout>
 
+       
 
-        <Label 
-        Text="UserName"
-        HorizontalTextAlignment="Center"
-     />
+              <!--TODO PICTURE-->
+              <!--TODO Location-->
 
-        <Entry 
-         Text="{Binding UserName}"
-         Style="{StaticResource input }" />
-        <Label TextColor="Red"
-         
-        Text="{Binding UserNameMessage}"
-         IsVisible="{Binding ShowmessageUserName}"           
-         
-     />
-
-
-        <Label 
-         
-        Text="Email"
-        HorizontalTextAlignment="Center"
-     />
-
-        <Entry
-         
-         Text="{Binding Email}"
-        Style="{StaticResource input }"
-         
-         />
-        <Label TextColor="Red"
-  
-        Text="{Binding EmailMessage}"
-        IsVisible="{Binding ShowmessageEmail}"           
-  
-     />
-
-        <Label
-     
-         Text="Passord"
-         HorizontalTextAlignment="Center"
-     />
-        <Entry     
-         
-         Text="{Binding Password}"
-         Style="{StaticResource input }"
-         
-     />
-
-        <Label TextColor="Red"
-  
-         Text="{Binding PasswordMessage}"
-         IsVisible="{Binding ShowmessagePassword}"           
-  
-     />
-
-        <Label
- 
-        Text="Comfirm Passord"
-        HorizontalTextAlignment="Center"
-     />
-        <Entry
-         Text="{Binding ConfirmPassword}"           
-         Style="{StaticResource input }"
-         />
-
-        <Label TextColor="Red"
-    
-      Text="{Binding ConfirmPaswordMessage}"
-      IsVisible="{Binding ShowmessageConfirmPassword}"           
-  
-     />
-        <Label TextColor="Red"
-    
-      Text="{Binding RegisterFailedMessage}"
-      IsVisible="{Binding ShowmessageRegisterFailed}"           
-  
-     />
-
-        <Button Command="{Binding RegisterCommand}"
+       
+        <Button Command="{Binding CreateNewPostCommand}"
          WidthRequest="100"
          Text="Register"
      />

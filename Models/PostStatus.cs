@@ -9,6 +9,6 @@ namespace FoundIt.Models
     public class PostStatus
     {
         public int Id { get; set; }
-        public string PostStatus { get; set; }
+        public string PostStatusName { get; set; }
     }
 }

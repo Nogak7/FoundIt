@@ -9,8 +9,8 @@
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate views:WelcomePage}"
-        Route="WelcomePage" />
+        ContentTemplate="{DataTemplate views:CreateNewPost}"
+        Route="CreateNewPost" />
 
 </Shell>
 
