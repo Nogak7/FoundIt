@@ -14,7 +14,7 @@ namespace FoundIt.Services
         readonly HttpClient _httpClient;
         readonly JsonSerializerOptions _serializerOptions;
         const string URL = @"https://h8pwv439-7102.euw.devtunnels.ms/api/FoundIt/";
-
+        const string IMAGE_URL = @"https://zr8z94hw-7004.euw.devtunnels.ms/";
         public FoundItService()
         {
             _httpClient = new HttpClient();
@@ -157,5 +157,60 @@ namespace FoundIt.Services
             return false;
 
         }
+
+
+        public async Task<string> GetImage() { return $"{IMAGE_URL}images/"; }
+
+
+        public async Task<bool> UploadFile(FileResult file)
+        {
+
+            try
+            {
+                //קובץ הוא לא מחלקה...
+                //נדרש להמיר אותו למערך של בייטים על מנת שיוכל לעבור ברשת
+                byte[] bytes;
+
+                #region המרה של הקובץ
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    //קריאה את אוסף הנתונים בקובץ
+                    var stream = await file.OpenReadAsync();
+                    //העתקת רצף הבייטים למקום זמני בזיכרון
+                    stream.CopyTo(ms);
+                    //המרה למערך
+                    bytes = ms.ToArray();
+                }
+                #endregion
+
+                //אובייקט המאפשר לשמור אוסף של קבצים שנוכל לצרף אותו לבקשה לשרת
+                var multipartFormDataContent = new MultipartFormDataContent();
+
+                //תוכן של בקשה המבוסס על מערך בתים
+                //פרמטר הראשון הוא התוכן
+                //פרמטר השני - זהה לשם הפרמטר של הפרמטר כפי שמופיע בחתימת הפעולה בשרת
+                //הפרמטר השלישי הוא שם הקובץ עצמו
+                var content = new ByteArrayContent(bytes);
+                multipartFormDataContent.Add(content, "file", "robot.jpg");
+                //ניתן לחזור על הפעולה אם נרצה קובץ נוסף או במקרה הזה
+                //אובייקט
+               /*TODO*/ var userContent = JsonSerializer.Serialize(new User() { Id = 1, Email = "kuku@kuku.com", FirstName = "kuku", LastName = "kiki", Pasword = "1234" }, _serializerOptions);
+                //הפרמטר הראשון הוא התוכן
+                //הפרמטר השני זה שם הפרמטר כפי שמופיע בחתימת הפעולה בשרת
+                multipartFormDataContent.Add(new StringContent(userContent, Encoding.UTF8, "application/json"), "user");
+
+                // Send POST request
+                var response = await _httpClient.PostAsync($@"{URL}UploadFile", multipartFormDataContent);
+                if (response.IsSuccessStatusCode) { return true; }
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
     }
+
 }
+    
+
