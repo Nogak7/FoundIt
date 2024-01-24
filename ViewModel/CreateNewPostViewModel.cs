@@ -48,7 +48,7 @@ namespace FoundIt.ViewModel
 
 
        
-
+        
             public CreateNewPostViewModel(FoundItService service)
             {
                createPostService = service;
