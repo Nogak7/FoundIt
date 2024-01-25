@@ -9,7 +9,7 @@
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate views:CreateNewPost}"
+        ContentTemplate="{DataTemplate views:CreateNewPostPage}"
         Route="CreateNewPost" />
 
 </Shell>

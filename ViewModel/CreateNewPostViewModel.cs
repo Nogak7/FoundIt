@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
 using FoundIt.Models;
 using FoundIt.Services;
 using FoundIt.Views;
@@ -24,8 +25,10 @@ namespace FoundIt.ViewModel
 
         private FoundItService createPostService;
         public bool ShowmessageUploudNewPostFailed { get; set; }
-
-
+        public bool RetakePhoto { get; set; }
+        public bool ShowPhoto { get; set; } = false;
+        public string PictureBtn { get; set; }
+        public string UploudBtn { get; set; }
         public string Theme { get => theme; set { if (theme != value) { theme = value; OnPropertyChange(); } } }
         public string Context { get => context; set { if (context != value) { context = value; OnPropertyChange(); } } }
         public bool FoundItem { get => founditem; set { if (founditem != value) { founditem = value; OnPropertyChange(); } } }
@@ -51,11 +54,17 @@ namespace FoundIt.ViewModel
         
             public CreateNewPostViewModel(FoundItService service)
             {
-               createPostService = service;
-             UploadPhoto = new Command(UploudPicture) ;
-               TakePictureCommand = new Command(TakePicture);
-               ChangePhoto = new Command(TakePicture);
-               CreateNewPostCommand = new Command(async () =>
+              PictureBtn = "Take Picture";
+              UploudBtn = "Uploud Picture";
+              createPostService = service;
+              UploadPhoto = new Command(UploudPicture) ;
+              TakePictureCommand = new Command(TakePicture);
+           
+              ShowPhoto = true;
+              PictureBtn = "ReTake Picture";
+              UploudBtn = "ReUploud Picture";
+
+            CreateNewPostCommand = new Command(async () =>
                 {
                     try
                     {
@@ -92,7 +101,7 @@ namespace FoundIt.ViewModel
 
 
             }
-        private async void TakePicture()
+        private  async void TakePicture()
         {
             //נכון לכרגע (נובמבר 2023) יש בעיה בתמיכה בווינדוס
             //#זו דרך לייצר תנאים ברמת הקומפילציה לפני זמן ריצה
@@ -128,15 +137,22 @@ namespace FoundIt.ViewModel
                         #endregion
 
                     });
-                }
+                    // save the file into local storage
+                    string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
 
+                    using Stream sourceStream = await photo.OpenReadAsync();
+                    using FileStream localFileStream = File.OpenWrite(localFilePath);
+
+                    await sourceStream.CopyToAsync(localFileStream);
+                    Picture = localFilePath;
+                }
+                
             }
             catch (Exception ex) { }
 #elif WINDOWS
               Shell.Current.DisplayAlert("לא נתמך", "כרגע לא ניתן להשתמש", "אישור");
 #endif
-
-
+           
         }
 
         private async void UploudPicture()
@@ -175,6 +191,15 @@ namespace FoundIt.ViewModel
                         #endregion
 
                     });
+                    // save the file into local storage
+                    string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+
+                    using Stream sourceStream = await photo.OpenReadAsync();
+                    using FileStream localFileStream = File.OpenWrite(localFilePath);
+
+                    await sourceStream.CopyToAsync(localFileStream);
+                    Picture = localFilePath;
+
                 }
 
             }
@@ -182,7 +207,7 @@ namespace FoundIt.ViewModel
 #elif WINDOWS
               Shell.Current.DisplayAlert("לא נתמך", "כרגע לא ניתן להשתמש", "אישור");
 #endif
-
+            
 
         }
         private async Task LoadPhoto(FileResult photo)

@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:FoundIt.ViewModel"
-             x:Class="FoundIt.Views.CreateNewPost"
+             x:Class="FoundIt.Views.CreateNewPostPage"
               x:DataType="viewModels:CreateNewPostViewModel"
            >
     <ContentPage.Resources>
@@ -16,16 +16,50 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-
-
+    
+       
+    
     <VerticalStackLayout >
-        <Label 
-     Text="CREATE NEW POST"
-     VerticalOptions="Center" 
-     HorizontalOptions="Center" />
+<Label
+     HeightRequest="70"
+     /> 
+    
         <Label
-         HeightRequest="70"
-         />
+            
+            Text="CREATE NEW POST"
+          VerticalOptions="Center" 
+         HorizontalOptions="Center"
+            
+            />
+        
+        <Image
+            Source="{Binding Picture}"
+            IsVisible="{Binding ShowPhoto}"
+            
+            />
+
+        <HorizontalStackLayout Margin="14" VerticalOptions="Center" HorizontalOptions="Center">
+
+            <Border>
+                <Button
+            Text="{Binding PictureBtn}"
+            Command="{Binding TakePictureCommand}"
+             WidthRequest="120"
+            />
+            </Border>
+
+
+            <Border>
+                <Button
+         Text="{Binding UploudBtn}"
+         Command="{Binding UploadPhoto}"
+         WidthRequest="120"
+    />
+            </Border>
+
+
+        </HorizontalStackLayout>
+        
         <Label 
          
          Text="Theme"
@@ -53,10 +87,16 @@
      />
 
         <HorizontalStackLayout>
-            <Label 
-   Text="if you found this item check this box, if this is an item that you lost leave it empty "
-   HorizontalTextAlignment="Center"
-/>
+         
+            <Label>
+                <Label.Text >
+                      if you found this item check this box, 
+                    if this is an item that you lost leave it empty 
+                </Label.Text>
+             
+            </Label>
+           
+
             <CheckBox
        
        IsChecked="{Binding FoundItem}"
@@ -71,9 +111,10 @@
               <!--TODO Location-->
 
        
-        <Button Command="{Binding CreateNewPostCommand}"
+        <Button
+            Command="{Binding CreateNewPostCommand}"
          WidthRequest="100"
-         Text="Register"
+         Text="Create Post"
      />
 
 

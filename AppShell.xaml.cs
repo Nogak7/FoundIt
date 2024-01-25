@@ -15,7 +15,7 @@ namespace FoundIt
             Routing.RegisterRoute("LogIn", typeof(Login));
             Routing.RegisterRoute("HomePage", typeof(HomePage));
             Routing.RegisterRoute("Register", typeof(Register));
-			Routing.RegisterRoute("CreateNewPost", typeof(CreateNewPost));
+			//Routing.RegisterRoute("CreateNewPostPage", typeof(CreateNewPostPage));
         }
 		protected override async void OnAppearing()
 		{

@@ -2,9 +2,9 @@ using FoundIt.ViewModel;
 
 namespace FoundIt.Views;
 
-public partial class CreateNewPost : ContentPage
+public partial class CreateNewPostPage : ContentPage
 {
-	public CreateNewPost(CreateNewPostViewModel vm)
+	public CreateNewPostPage(CreateNewPostViewModel vm)
 	{
 		this.BindingContext = vm;
 		InitializeComponent();
