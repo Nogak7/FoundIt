@@ -16,25 +16,29 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
-       
-    
+
+
+    <ScrollView>
     <VerticalStackLayout >
 <Label
-     HeightRequest="70"
+     HeightRequest="20"
      /> 
     
         <Label
             
             Text="CREATE NEW POST"
+        FontSize="Header"
+        
           VerticalOptions="Center" 
          HorizontalOptions="Center"
             
             />
         
         <Image
-            Source="{Binding Picture}"
+            Source="{Binding Picture}" 
             IsVisible="{Binding ShowPhoto}"
+            WidthRequest="140"
+            HeightRequest="140"
             
             />
 
@@ -44,7 +48,7 @@
                 <Button
             Text="{Binding PictureBtn}"
             Command="{Binding TakePictureCommand}"
-             WidthRequest="120"
+             WidthRequest="140"
             />
             </Border>
 
@@ -53,7 +57,7 @@
                 <Button
          Text="{Binding UploudBtn}"
          Command="{Binding UploadPhoto}"
-         WidthRequest="120"
+         WidthRequest="140"
     />
             </Border>
 
@@ -88,10 +92,10 @@
 
         <HorizontalStackLayout>
          
-            <Label>
-                <Label.Text >
+            <Label HorizontalOptions="Center">
+                <Label.Text  >
                       if you found this item check this box, 
-                    if this is an item that you lost leave it empty 
+                      if this is an item that you lost leave it empty 
                 </Label.Text>
              
             </Label>
@@ -107,14 +111,15 @@
 
        
 
-              <!--TODO PICTURE-->
+             
               <!--TODO Location-->
 
        
         <Button
             Command="{Binding CreateNewPostCommand}"
-         WidthRequest="100"
+         WidthRequest="150"
          Text="Create Post"
+            Margin="10"
      />
 
 
@@ -126,5 +131,5 @@
 
 
     </VerticalStackLayout>
-   
+   </ScrollView>
 </ContentPage>

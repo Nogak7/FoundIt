@@ -26,13 +26,13 @@ namespace FoundIt.ViewModel
         private FoundItService createPostService;
         public bool ShowmessageUploudNewPostFailed { get; set; }
         public bool RetakePhoto { get; set; }
-        public bool ShowPhoto { get; set; } = false;
+        public bool ShowPhoto { get => Picture != null; }
         public string PictureBtn { get; set; }
         public string UploudBtn { get; set; }
         public string Theme { get => theme; set { if (theme != value) { theme = value; OnPropertyChange(); } } }
         public string Context { get => context; set { if (context != value) { context = value; OnPropertyChange(); } } }
         public bool FoundItem { get => founditem; set { if (founditem != value) { founditem = value; OnPropertyChange(); } } }
-        public string Picture { get => picture; set { if (picture != value) { picture = value; OnPropertyChange(); } } }
+        public string Picture { get => picture; set { if (picture != value) { picture = value; OnPropertyChange();OnPropertyChange(nameof(ShowPhoto)); } } }
         public string PictureLocation { get => picture; set { if (value != picture) { picture = value; OnPropertyChange(); } } }
         public User Creator { get => creator; set { if (creator != value) { creator = value; OnPropertyChange(); } } }
         public string Location { get => location; set { if (location != value) { location = value; OnPropertyChange(); } } }
@@ -60,9 +60,10 @@ namespace FoundIt.ViewModel
               UploadPhoto = new Command(UploudPicture) ;
               TakePictureCommand = new Command(TakePicture);
            
-              ShowPhoto = true;
-              PictureBtn = "ReTake Picture";
-              UploudBtn = "ReUploud Picture";
+            
+                
+            
+             
 
             CreateNewPostCommand = new Command(async () =>
                 {
@@ -136,8 +137,6 @@ namespace FoundIt.ViewModel
                         await Shell.Current.Navigation.PopModalAsync();
                         #endregion
 
-                    });
-                    // save the file into local storage
                     string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
 
                     using Stream sourceStream = await photo.OpenReadAsync();
@@ -145,10 +144,15 @@ namespace FoundIt.ViewModel
 
                     await sourceStream.CopyToAsync(localFileStream);
                     Picture = localFilePath;
+                        PictureBtn = "ReTake Picture";
+                        UploudBtn = "ReUploud Picture";
+
+                    });
+                    // save the file into local storage
                 }
                 
             }
-            catch (Exception ex) { }
+            catch (Exception ex) {  }
 #elif WINDOWS
               Shell.Current.DisplayAlert("לא נתמך", "כרגע לא ניתן להשתמש", "אישור");
 #endif
@@ -184,13 +188,13 @@ namespace FoundIt.ViewModel
                         #endregion
 
                         //הצגת התמונה במסך ושליחתה לממשק.
-                        await LoadPhoto(photo);
+                      //  await LoadPhoto(photo); //fix With Tal
 
                         #region סגירת מסך טעינה
                         await Shell.Current.Navigation.PopModalAsync();
                         #endregion
 
-                    });
+                    
                     // save the file into local storage
                     string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
 
@@ -199,6 +203,9 @@ namespace FoundIt.ViewModel
 
                     await sourceStream.CopyToAsync(localFileStream);
                     Picture = localFilePath;
+                        PictureBtn = "ReTake Picture";
+                        UploudBtn = "ReUploud Picture";
+                    });
 
                 }
 
@@ -218,12 +225,13 @@ namespace FoundIt.ViewModel
                     var stream = await photo.OpenReadAsync();
                     PhotoImageSource = ImageSource.FromStream(() => stream);
                     OnPropertyChange(nameof(PhotoImageSource));
-                    await Upload(photo);
+                    //await Upload(photo);// fix with Tal
 
 
                 }
                 catch (Exception ex) { }
             }
+        //To do with Tal Fix Server
             private async Task Upload(FileResult file)
             {
 
