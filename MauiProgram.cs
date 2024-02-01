@@ -16,10 +16,15 @@ public static class MauiProgram
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			});
+			})
+
+		 .ConfigureEssentials(essentials =>
+          {
+              essentials.UseMapServiceToken("YOUR-API-TOKEN");
+          });
 
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 		
         builder.Services.AddTransient<Login>();

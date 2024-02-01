@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -20,22 +21,26 @@ namespace FoundIt.ViewModel
         private bool founditem;
         private string picture;
         private User creator;
-        private string location;
+        private string address;
         private PostStatus status;
+        private Location location;
 
         private FoundItService createPostService;
         public bool ShowmessageUploudNewPostFailed { get; set; }
         public bool RetakePhoto { get; set; }
         public bool ShowPhoto { get => Picture != null; }
         public string PictureBtn { get; set; }
-        public string UploudBtn { get; set; }
+        public string UploudBtn { get; set; }         
+        public string Address { get => address; set { if (address != value) { address = value; OnPropertyChange(); } } }
+    
+
         public string Theme { get => theme; set { if (theme != value) { theme = value; OnPropertyChange(); } } }
         public string Context { get => context; set { if (context != value) { context = value; OnPropertyChange(); } } }
         public bool FoundItem { get => founditem; set { if (founditem != value) { founditem = value; OnPropertyChange(); } } }
         public string Picture { get => picture; set { if (picture != value) { picture = value; OnPropertyChange();OnPropertyChange(nameof(ShowPhoto)); } } }
         public string PictureLocation { get => picture; set { if (value != picture) { picture = value; OnPropertyChange(); } } }
         public User Creator { get => creator; set { if (creator != value) { creator = value; OnPropertyChange(); } } }
-        public string Location { get => location; set { if (location != value) { location = value; OnPropertyChange(); } } }
+        //public string Location { get => location; set { if (location != value) { location = value; OnPropertyChange(); } } }
         public PostStatus Status { get => status; set { if (status != value) { status = value; OnPropertyChange(); } } }
 
         public ImageSource PhotoImageSource { get; set; }
@@ -48,22 +53,24 @@ namespace FoundIt.ViewModel
         public ICommand PutPictureCommand { get; protected set; }
         public ICommand ChangePhoto { get; protected set; }
         #endregion
+        public Location LocationS { get => location; set { if (location != value) { location = value; OnPropertyChange(); } } }
+        public ObservableCollection<Location> Locations { get; set; }
 
 
-       
-        
-            public CreateNewPostViewModel(FoundItService service)
+
+
+        public CreateNewPostViewModel(FoundItService service)
             {
               PictureBtn = "Take Picture";
               UploudBtn = "Uploud Picture";
               createPostService = service;
               UploadPhoto = new Command(UploudPicture) ;
               TakePictureCommand = new Command(TakePicture);
-           
-            
-                
-            
-             
+
+
+
+ 
+
 
             CreateNewPostCommand = new Command(async () =>
                 {
@@ -73,7 +80,7 @@ namespace FoundIt.ViewModel
                         await Shell.Current.Navigation.PushModalAsync(new Alerts(vm));
                         App currentApp = (App)Application.Current;
                         Post newPost = new Post()
-                        { Theme = Theme, Context = Context, FoundItem = FoundItem, Picture = Picture, Creator = currentApp.User, CreatingDate = DateTime.Now, Location = Location, Status = currentApp.PostStatuses.Find(x => x.Id == 1) };
+                        { Theme = Theme, Context = Context, FoundItem = FoundItem, Picture = Picture, Creator = currentApp.User, CreatingDate = DateTime.Now, /*Location = Location,*/ Status = currentApp.PostStatuses.Find(x => x.Id == 1) };
                         var response = await service.CreateNewPostAsync(newPost);
                         if (response)
                         {
@@ -252,6 +259,13 @@ namespace FoundIt.ViewModel
 
             }
 
+        private async void GetLocation(string address)
+        {
+
+            Locations = await Geocoding.Default.GetLocationsAsync(Address);
+
+           
+        }
 
             #endregion
 

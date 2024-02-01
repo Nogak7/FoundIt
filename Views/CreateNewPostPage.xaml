@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels="clr-namespace:FoundIt.ViewModel"
-             x:Class="FoundIt.Views.CreateNewPostPage"
-              x:DataType="viewModels:CreateNewPostViewModel"
-           >
+<ContentPage
+    x:Class="FoundIt.Views.CreateNewPostPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:FoundIt.ViewModel"
+    x:DataType="viewModels:CreateNewPostViewModel">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="input" TargetType="Entry">
 
-                <Setter Property="WidthRequest" Value="250"/>
-                <Setter Property="HorizontalOptions" Value="Center"/>
-                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="WidthRequest" Value="250" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
 
             </Style>
         </ResourceDictionary>
@@ -19,108 +19,92 @@
 
 
     <ScrollView>
-    <VerticalStackLayout >
-<Label
-     HeightRequest="20"
-     /> 
-    
-        <Label
-            
-            Text="CREATE NEW POST"
-        FontSize="Header"
-        
-          VerticalOptions="Center" 
-         HorizontalOptions="Center"
-            
-            />
-        
-        <Image
-            Source="{Binding Picture}" 
-            IsVisible="{Binding ShowPhoto}"
-            WidthRequest="140"
-            HeightRequest="140"
-            
-            />
+        <VerticalStackLayout>
+            <Label HeightRequest="20" />
 
-        <HorizontalStackLayout Margin="14" VerticalOptions="Center" HorizontalOptions="Center">
+            <Label
+                FontSize="Header"
+                HorizontalOptions="Center"
+                Text="CREATE NEW POST"
+                VerticalOptions="Center" />
 
-            <Border>
-                <Button
-            Text="{Binding PictureBtn}"
-            Command="{Binding TakePictureCommand}"
-             WidthRequest="140"
-            />
-            </Border>
+            <Image
+                HeightRequest="140"
+                IsVisible="{Binding ShowPhoto}"
+                Source="{Binding Picture}"
+                WidthRequest="140" />
+
+            <HorizontalStackLayout
+                Margin="14"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+
+                <Border>
+                    <Button
+                        Command="{Binding TakePictureCommand}"
+                        Text="{Binding PictureBtn}"
+                        WidthRequest="140" />
+                </Border>
 
 
-            <Border>
-                <Button
-         Text="{Binding UploudBtn}"
-         Command="{Binding UploadPhoto}"
-         WidthRequest="140"
-    />
-            </Border>
+                <Border>
+                    <Button
+                        Command="{Binding UploadPhoto}"
+                        Text="{Binding UploudBtn}"
+                        WidthRequest="140" />
+                </Border>
 
 
-        </HorizontalStackLayout>
-        
-        <Label 
-         
-         Text="Theme"
-         HorizontalTextAlignment="Center"
-     />
-
-        <Entry 
-        Text="{Binding Theme}" 
-        Style="{StaticResource input }"
-     />
-        
+            </HorizontalStackLayout>
 
 
 
-        <Label 
-         
-        Text="Context"
-        HorizontalTextAlignment="Center"
-     />
+            <Entry Style="{StaticResource input}" Text="{Binding Address}"  Placeholder="Enter Location"/>
 
-        <Entry 
-       Text="{Binding Context}"
-       Style="{StaticResource input }"
-         
-     />
+            <CollectionView ItemsSource="{Binding }"
+                
+                
+                />
 
-        <HorizontalStackLayout>
-         
-            <Label HorizontalOptions="Center">
-                <Label.Text  >
-                      if you found this item check this box, 
-                      if this is an item that you lost leave it empty 
-                </Label.Text>
-             
-            </Label>
-           
 
-            <CheckBox
-       
-       IsChecked="{Binding FoundItem}"
-       
-       
-       />
-        </HorizontalStackLayout>
 
-       
+            <Label HorizontalTextAlignment="Center" Text="Theme" />
 
-             
-              <!--TODO Location-->
+            <Entry Style="{StaticResource input}" Text="{Binding Theme}" />
 
-       
-        <Button
-            Command="{Binding CreateNewPostCommand}"
-         WidthRequest="150"
-         Text="Create Post"
-            Margin="10"
-     />
+
+
+
+            <Label HorizontalTextAlignment="Center" Text="Context" />
+
+            <Entry Style="{StaticResource input}" Text="{Binding Context}" />
+
+            <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+
+                <Label HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="if you found this item check this box, &#10;" />
+                            <Span Text="if this is an item that you lost leave it empty " />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+
+                <CheckBox IsChecked="{Binding FoundItem}" />
+            </HorizontalStackLayout>
+
+
+
+
+            <!--  TODO Location  -->
+
+
+            <Button
+                Margin="10"
+                Command="{Binding CreateNewPostCommand}"
+                Text="Create Post"
+                WidthRequest="150" />
 
 
 
@@ -130,6 +114,6 @@
 
 
 
-    </VerticalStackLayout>
-   </ScrollView>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
