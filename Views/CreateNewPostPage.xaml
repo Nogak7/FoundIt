@@ -57,14 +57,28 @@
 
             </HorizontalStackLayout>
 
+            <HorizontalStackLayout HorizontalOptions="Center">
+
+                <Entry
+                    Placeholder="Enter Location"
+                    Style="{StaticResource input}"
+                    Text="{Binding Address}" />
+                <Border StrokeShape="RoundRectangle 80,40,40,80">
+                    <ImageButton
+                        Aspect="AspectFill"
+                        HeightRequest="28"
+                        Source="search_pic"
+                        WidthRequest="28" />
 
 
-            <Entry Style="{StaticResource input}" Text="{Binding Address}"  Placeholder="Enter Location"/>
 
-            <CollectionView ItemsSource="{Binding }"
-                
-                
-                />
+
+                </Border>
+
+            </HorizontalStackLayout>
+
+
+            <CollectionView ItemsSource="{Binding}" />
 
 
 

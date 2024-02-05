@@ -61,6 +61,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\search_pic.png" />
 	  <None Remove="Views\" />
 	  <None Remove="Models\" />
 	  <None Remove="ViewModel\" />

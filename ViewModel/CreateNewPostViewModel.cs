@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -66,6 +67,7 @@ namespace FoundIt.ViewModel
               createPostService = service;
               UploadPhoto = new Command(UploudPicture) ;
               TakePictureCommand = new Command(TakePicture);
+              Locations=new ObservableCollection<Location>();
 
 
 
@@ -153,6 +155,8 @@ namespace FoundIt.ViewModel
                     Picture = localFilePath;
                         PictureBtn = "ReTake Picture";
                         UploudBtn = "ReUploud Picture";
+                        RefreshProperties();
+
 
                     });
                     // save the file into local storage
@@ -186,33 +190,37 @@ namespace FoundIt.ViewModel
                     //UI
                     MainThread.BeginInvokeOnMainThread(async () =>
                     {
-                        photo = await MediaPicker.Default.PickPhotoAsync();
+                    photo = await MediaPicker.Default.PickPhotoAsync();
 
-                        #region מסך טעינה
-                        AlertsViewModel vm = new AlertsViewModel() { AlertMessage = "....", AlertShowMessage = true };
-                        await Task.Delay(1000);
-                        await Shell.Current.Navigation.PushModalAsync(new Alerts(vm));
+                    #region מסך טעינה
+                    AlertsViewModel vm = new AlertsViewModel() { AlertMessage = "....", AlertShowMessage = true };
+                    await Task.Delay(1000);
+                    await Shell.Current.Navigation.PushModalAsync(new Alerts(vm));
+                    #endregion
+
+                    //הצגת התמונה במסך ושליחתה לממשק.
+                    //  await LoadPhoto(photo); //fix With Tal
+
+                    #region סגירת מסך טעינה
+                    await Shell.Current.Navigation.PopModalAsync();
                         #endregion
 
-                        //הצגת התמונה במסך ושליחתה לממשק.
-                      //  await LoadPhoto(photo); //fix With Tal
+                        if (photo != null)
+                        {
+                            // save the file into local storage
+                            string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
 
-                        #region סגירת מסך טעינה
-                        await Shell.Current.Navigation.PopModalAsync();
-                        #endregion
+                            using Stream sourceStream = await photo.OpenReadAsync();
+                            using FileStream localFileStream = File.OpenWrite(localFilePath);
 
-                    
-                    // save the file into local storage
-                    string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
-
-                    using Stream sourceStream = await photo.OpenReadAsync();
-                    using FileStream localFileStream = File.OpenWrite(localFilePath);
-
-                    await sourceStream.CopyToAsync(localFileStream);
-                    Picture = localFilePath;
+                            await sourceStream.CopyToAsync(localFileStream);
+                            Picture = localFilePath;
+                        }
                         PictureBtn = "ReTake Picture";
                         UploudBtn = "ReUploud Picture";
+                        RefreshProperties();
                     });
+                
 
                 }
 
@@ -259,15 +267,24 @@ namespace FoundIt.ViewModel
 
             }
 
-        private async void GetLocation(string address)
+        private async void GetLocation()
         {
+            Locations.Clear();  
+           var addresses  = await Geocoding.Default.GetLocationsAsync(Address);
+            foreach(var x in addresses)
+            Locations.Add(x);
 
-            Locations = await Geocoding.Default.GetLocationsAsync(Address);
 
-           
+
         }
 
             #endregion
+
+        private void RefreshProperties()
+        {
+            OnPropertyChange(nameof(PictureBtn));
+            OnPropertyChange(nameof(UploudBtn));
+        }
 
         }
     }
