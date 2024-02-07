@@ -49,7 +49,7 @@ namespace FoundIt.ViewModel
         #region Commands
         public ICommand CreateNewPostCommand { get; set; }
         public ICommand UploadPhoto { get; protected set; }
-
+        public ICommand SearchLocation { get; protected set; }
         public ICommand TakePictureCommand { get; protected set; }
         public ICommand PutPictureCommand { get; protected set; }
         public ICommand ChangePhoto { get; protected set; }
@@ -68,8 +68,7 @@ namespace FoundIt.ViewModel
               UploadPhoto = new Command(UploudPicture) ;
               TakePictureCommand = new Command(TakePicture);
               Locations=new ObservableCollection<Location>();
-
-
+              SearchLocation = new Command(GetLocation);
 
  
 
@@ -269,23 +268,25 @@ namespace FoundIt.ViewModel
 
         private async void GetLocation()
         {
+            List<string> locations = new List<string>();
             Locations.Clear();  
            var addresses  = await Geocoding.Default.GetLocationsAsync(Address);
-            foreach(var x in addresses)
-            Locations.Add(x);
-
-
+            foreach (var x in addresses)
+            {
+                IEnumerable<Placemark> placemarks = await Geocoding.Default.GetPlacemarksAsync(x.Latitude, x.Longitude);
+                Locations.Add(x);
+            }
 
         }
 
-            #endregion
+          
 
         private void RefreshProperties()
         {
             OnPropertyChange(nameof(PictureBtn));
             OnPropertyChange(nameof(UploudBtn));
         }
-
+           #endregion
         }
     }
     
