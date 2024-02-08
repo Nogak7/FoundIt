@@ -88,18 +88,19 @@
                 ItemsSource="{Binding Locations}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
+                        <ScrollView>
                         <StackLayout>
-                            <Frame>
-                                <Label LineHeight="1.8" MaxLines="2" LineBreakMode="WordWrap"  Text="{Binding .}" />
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer
+                                <Frame>
+                                    <Label LineHeight="1.8" MaxLines="2" LineBreakMode="WordWrap"  Text="{Binding .}" />
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer
                                         Command="{Binding Source={x:Reference cv}, Path=BindingContext.ChooseLocationCommand}"
                                         CommandParameter="{Binding .}"
                                         NumberOfTapsRequired="1" />
-                                </Frame.GestureRecognizers>
-                            </Frame>
-
-                        </StackLayout>
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </StackLayout>
+                    </ScrollView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
