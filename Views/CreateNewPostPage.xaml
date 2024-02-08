@@ -62,6 +62,7 @@
             <HorizontalStackLayout HorizontalOptions="Center">
 
                 <Entry
+                    
                     Placeholder="Enter Location"
                     Style="{StaticResource input}"
                     Text="{Binding Address}" />
@@ -81,15 +82,23 @@
             </HorizontalStackLayout>
 
 
-            <CollectionView Margin="10" ItemsSource="{Binding Locations}">
+            <CollectionView
+                x:Name="cv"
+                Margin="10"
+                ItemsSource="{Binding Locations}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout>
-                            <Label Text="1">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding CreateNewPostCommand}" />
-                                </Label.GestureRecognizers>
-                            </Label>
+                            <Frame>
+                                <Label LineHeight="1.8" MaxLines="2" LineBreakMode="WordWrap"  Text="{Binding .}" />
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={x:Reference cv}, Path=BindingContext.ChooseLocationCommand}"
+                                        CommandParameter="{Binding .}"
+                                        NumberOfTapsRequired="1" />
+                                </Frame.GestureRecognizers>
+                            </Frame>
+
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

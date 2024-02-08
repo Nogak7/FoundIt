@@ -53,10 +53,11 @@ namespace FoundIt.ViewModel
         public ICommand TakePictureCommand { get; protected set; }
         public ICommand PutPictureCommand { get; protected set; }
         public ICommand ChangePhoto { get; protected set; }
+        public ICommand ChooseLocationCommand { get; protected set; }   
         #endregion
         public Location LocationS { get => location; set { if (location != value) { location = value; OnPropertyChange(); } } }
-        public ObservableCollection<Location> Locations { get; set; }
-
+        public ObservableCollection<string> Locations { get; set; }
+        
 
 
 
@@ -67,12 +68,12 @@ namespace FoundIt.ViewModel
               createPostService = service;
               UploadPhoto = new Command(UploudPicture) ;
               TakePictureCommand = new Command(TakePicture);
-              Locations=new ObservableCollection<Location>();
+              Locations=new ObservableCollection<string>();
               SearchLocation = new Command(GetLocation);
 
- 
 
 
+            ChooseLocationCommand = new Command(async (object x) => { Address = x.ToString();Locations.Clear(); });
             CreateNewPostCommand = new Command(async () =>
                 {
                     try
@@ -268,13 +269,18 @@ namespace FoundIt.ViewModel
 
         private async void GetLocation()
         {
-            List<string> locations = new List<string>();
+          
             Locations.Clear();  
            var addresses  = await Geocoding.Default.GetLocationsAsync(Address);
             foreach (var x in addresses)
             {
                 IEnumerable<Placemark> placemarks = await Geocoding.Default.GetPlacemarksAsync(x.Latitude, x.Longitude);
-                Locations.Add(x);
+               foreach(Placemark place in placemarks)
+                {
+                    string loc = $"{place.Locality}-{place.Thoroughfare} - {place.FeatureName}";
+                    Locations.Add(loc); 
+
+                }
             }
 
         }
