@@ -62,7 +62,7 @@
             <HorizontalStackLayout HorizontalOptions="Center">
 
                 <Entry
-                    
+                    IsEnabled="{Binding LocationIsChosen}"
                     Placeholder="Enter Location"
                     Style="{StaticResource input}"
                     Text="{Binding Address}" />
@@ -89,18 +89,23 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <ScrollView>
-                        <StackLayout>
+                            <StackLayout>
                                 <Frame>
-                                    <Label LineHeight="1.8" MaxLines="2" LineBreakMode="WordWrap"  Text="{Binding .}" />
+                                    <Label
+                                        HeightRequest="100"
+                                        LineBreakMode="MiddleTruncation"
+                                        LineHeight="1.8"
+                                        MaxLines="2"
+                                        Text="{Binding .}" />
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer
-                                        Command="{Binding Source={x:Reference cv}, Path=BindingContext.ChooseLocationCommand}"
-                                        CommandParameter="{Binding .}"
-                                        NumberOfTapsRequired="1" />
+                                            Command="{Binding Source={x:Reference cv}, Path=BindingContext.ChooseLocationCommand}"
+                                            CommandParameter="{Binding .}"
+                                            NumberOfTapsRequired="1" />
                                     </Frame.GestureRecognizers>
                                 </Frame>
                             </StackLayout>
-                    </ScrollView>
+                        </ScrollView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

@@ -25,10 +25,12 @@ namespace FoundIt.ViewModel
         private string address;
         private PostStatus status;
         private Location location;
+        private bool locischosen;
 
         private FoundItService createPostService;
         public bool ShowmessageUploudNewPostFailed { get; set; }
         public bool RetakePhoto { get; set; }
+        public bool LocationIsChosen { get; set; } 
         public bool ShowPhoto { get => Picture != null; }
         public string PictureBtn { get; set; }
         public string UploudBtn { get; set; }         
@@ -63,6 +65,7 @@ namespace FoundIt.ViewModel
 
         public CreateNewPostViewModel(FoundItService service)
             {
+            LocationIsChosen = true;
               PictureBtn = "Take Picture";
               UploudBtn = "Uploud Picture";
               createPostService = service;
@@ -73,7 +76,7 @@ namespace FoundIt.ViewModel
 
 
 
-            ChooseLocationCommand = new Command(async (object x) => { Address = x.ToString();Locations.Clear(); });
+            ChooseLocationCommand = new Command(async (object x) => { Address = x.ToString();Locations.Clear(); LocationIsChosen = false; });
             CreateNewPostCommand = new Command(async () =>
                 {
                     try
