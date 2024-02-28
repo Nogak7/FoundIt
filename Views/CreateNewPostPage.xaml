@@ -14,6 +14,13 @@
                 <Setter Property="VerticalOptions" Value="Center" />
 
             </Style>
+            <Style x:Key="inputEditor" TargetType="Editor">
+
+                <Setter Property="WidthRequest" Value="250" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -61,7 +68,8 @@
 
             <HorizontalStackLayout HorizontalOptions="Center">
 
-                <Entry
+                <Editor
+                    AutoSize="TextChanges"
                     IsEnabled="{Binding LocationIsChosen}"
                     Placeholder="Enter Location"
                     Style="{StaticResource input}"
@@ -110,21 +118,26 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-
+            <Button
+                IsVisible="{Binding ResearchBtn}"
+                Text="Research Location"
+                WidthRequest="90"
+                
+                />
 
 
 
 
             <Label HorizontalTextAlignment="Center" Text="Theme" />
 
-            <Entry Style="{StaticResource input}" Text="{Binding Theme}" />
+            <Editor Style="{StaticResource inputEditor}" Text="{Binding Theme}" />
 
 
 
 
             <Label HorizontalTextAlignment="Center" Text="Context" />
 
-            <Entry Style="{StaticResource input}" Text="{Binding Context}" />
+            <Editor Style="{StaticResource inputEditor}" Text="{Binding Context}" />
 
             <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
 
@@ -144,7 +157,7 @@
 
 
 
-            <!--  TODO Location  -->
+            
 
 
             <Button
