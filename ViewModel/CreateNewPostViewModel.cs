@@ -78,7 +78,7 @@ namespace FoundIt.ViewModel
               SearchLocation = new Command(GetLocation);
 
 
-
+            //
             ChooseLocationCommand = new Command(async (object x) => { Address = x.ToString();Locations.Clear(); LocationIsChosen = false; ResearchBtn = true; });
             CreateNewPostCommand = new Command(async () =>
                 {
