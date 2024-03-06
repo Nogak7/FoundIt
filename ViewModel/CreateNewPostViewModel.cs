@@ -57,7 +57,8 @@ namespace FoundIt.ViewModel
         public ICommand TakePictureCommand { get; protected set; }
         public ICommand PutPictureCommand { get; protected set; }
         public ICommand ChangePhoto { get; protected set; }
-        public ICommand ChooseLocationCommand { get; protected set; }   
+        public ICommand ChooseLocationCommand { get; protected set; }
+        public ICommand ResearchLocationCommand { get; protected set; }
         #endregion
         public Location LocationS { get => location; set { if (location != value) { location = value; OnPropertyChange(); } } }
         public ObservableCollection<string> Locations { get; set; }
@@ -75,8 +76,8 @@ namespace FoundIt.ViewModel
               UploadPhoto = new Command(UploudPicture) ;
               TakePictureCommand = new Command(TakePicture);
               Locations=new ObservableCollection<string>();
-              SearchLocation = new Command(GetLocation);
-
+            SearchLocation = new Command(async () => await GetLocation()) ;
+             ResearchLocationCommand = new Command (async () => await ResearchLocation());
 
             //
             ChooseLocationCommand = new Command(async (object x) => { Address = x.ToString();Locations.Clear(); LocationIsChosen = false; ResearchBtn = true; });
@@ -273,7 +274,7 @@ namespace FoundIt.ViewModel
 
             }
 
-        private async void GetLocation()
+        private async Task GetLocation()
         {
           
             Locations.Clear();  
@@ -297,9 +298,19 @@ namespace FoundIt.ViewModel
         {
             OnPropertyChange(nameof(PictureBtn));
             OnPropertyChange(nameof(UploudBtn));
+        } 
+        
+        private async Task ResearchLocation()
+        {
+            LocationIsChosen = true;
+           await  GetLocation();  
         }
+
+
+
            #endregion
         }
+
     }
     
 

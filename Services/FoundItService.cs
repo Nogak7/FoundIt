@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using FoundIt.Models;
+using Org.Apache.Http.Protocol;
 
 namespace FoundIt.Services
 {
@@ -13,8 +14,8 @@ namespace FoundIt.Services
     {
         readonly HttpClient _httpClient;
         readonly JsonSerializerOptions _serializerOptions;
-        const string URL = @"https://h8pwv439-7102.euw.devtunnels.ms/api/FoundIt/";
-        const string IMAGE_URL = @"https://zr8z94hw-7004.euw.devtunnels.ms/";
+        static string URL = DeviceInfo.Platform == DevicePlatform.Android ? @"http://10.0.2.2:5062/FoundItController" : @"http://localhost:5062";
+        static string IMAGE_URL = DeviceInfo.Platform == DevicePlatform.Android ? @"http://10.0.2.2.5062":@"http://localhost:5062";
         public FoundItService()
         {
             _httpClient = new HttpClient();
