@@ -124,7 +124,7 @@ namespace FoundIt.Services
         }
 
        
-             public async Task<bool> CreateNewPostAsync(Post post)
+             public async Task<bool> CreateNewPostAsync(Post post, FileResult file)
         {
             try
             {

@@ -37,7 +37,7 @@ namespace FoundIt.ViewModel
         public string PictureBtn { get; set; }
         public string UploudBtn { get; set; }         
         public string Address { get => address; set { if (address != value) { address = value; OnPropertyChange(); } } }
-    
+        private static FileResult fileResult;   
 
         public string Theme { get => theme; set { if (theme != value) { theme = value; OnPropertyChange(); } } }
         public string Context { get => context; set { if (context != value) { context = value; OnPropertyChange(); } } }
@@ -90,7 +90,7 @@ namespace FoundIt.ViewModel
                         App currentApp = (App)Application.Current;
                         Post newPost = new Post()
                         { Theme = Theme, Context = Context, FoundItem = FoundItem, Picture = Picture, Creator = currentApp.User, CreatingDate = DateTime.Now, /*Location = Location,*/ Status = currentApp.PostStatuses.Find(x => x.Id == 1) };
-                        var response = await service.CreateNewPostAsync(newPost);
+                        var response = await service.CreateNewPostAsync(newPost,);
                         if (response)
                         {
                             vm.AlertShowMessage = false;
@@ -138,6 +138,7 @@ namespace FoundIt.ViewModel
                     //UI
                     MainThread.BeginInvokeOnMainThread(async () =>
                     {
+                        //קבלת תמונה מהמצלמה
                         photo = await MediaPicker.Default.CapturePhotoAsync();
 
                         #region מסך טעינה
@@ -152,18 +153,19 @@ namespace FoundIt.ViewModel
                         #region סגירת מסך טעינה
                         await Shell.Current.Navigation.PopModalAsync();
                         #endregion
-
+                        //יצירת קובץ בנתיב מקומי במכשיר
                     string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
-
+                       //קריאת נתוני התמונה
                     using Stream sourceStream = await photo.OpenReadAsync();
+                        //פתיחת הקובץ לעדכון
                     using FileStream localFileStream = File.OpenWrite(localFilePath);
-
+                        //שמירת נתוני התמונה בקובץ
                     await sourceStream.CopyToAsync(localFileStream);
-                    Picture = localFilePath;
+                     //   Picture = localFilePath;
                         PictureBtn = "ReTake Picture";
                         UploudBtn = "ReUploud Picture";
                         RefreshProperties();
-
+                        fileResult = photo;
 
                     });
                     // save the file into local storage
@@ -221,7 +223,8 @@ namespace FoundIt.ViewModel
                             using FileStream localFileStream = File.OpenWrite(localFilePath);
 
                             await sourceStream.CopyToAsync(localFileStream);
-                            Picture = localFilePath;
+                           // Picture = localFilePath;
+                           fileResult = photo;
                         }
                         PictureBtn = "ReTake Picture";
                         UploudBtn = "ReUploud Picture";
