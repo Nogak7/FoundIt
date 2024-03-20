@@ -90,7 +90,7 @@ namespace FoundIt.ViewModel
                         App currentApp = (App)Application.Current;
                         Post newPost = new Post()
                         { Theme = Theme, Context = Context, FoundItem = FoundItem, Picture = Picture, Creator = currentApp.User, CreatingDate = DateTime.Now, /*Location = Location,*/ Status = currentApp.PostStatuses.Find(x => x.Id == 1) };
-                        var response = await service.CreateNewPostAsync(newPost,);
+                        var response = await service.CreateNewPostAsync(newPost);
                         if (response)
                         {
                             vm.AlertShowMessage = false;
@@ -108,7 +108,7 @@ namespace FoundIt.ViewModel
                         }
                         OnPropertyChange(nameof(ShowmessageUploudNewPostFailed));
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) { await Shell.Current.Navigation.PopAsync(); }
 
                 });
 
@@ -161,7 +161,7 @@ namespace FoundIt.ViewModel
                     using FileStream localFileStream = File.OpenWrite(localFilePath);
                         //שמירת נתוני התמונה בקובץ
                     await sourceStream.CopyToAsync(localFileStream);
-                     //   Picture = localFilePath;
+                        Picture = localFilePath;
                         PictureBtn = "ReTake Picture";
                         UploudBtn = "ReUploud Picture";
                         RefreshProperties();
@@ -223,7 +223,7 @@ namespace FoundIt.ViewModel
                             using FileStream localFileStream = File.OpenWrite(localFilePath);
 
                             await sourceStream.CopyToAsync(localFileStream);
-                           // Picture = localFilePath;
+                            Picture = localFilePath;
                            fileResult = photo;
                         }
                         PictureBtn = "ReTake Picture";

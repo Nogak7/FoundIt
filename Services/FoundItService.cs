@@ -15,8 +15,8 @@ namespace FoundIt.Services
     {
         readonly HttpClient _httpClient;
         readonly JsonSerializerOptions _serializerOptions;
-        static string URL = DeviceInfo.Platform == DevicePlatform.Android ? @"http://10.0.2.2:5062/FoundItController" : @"http://localhost:5062";
-        static string IMAGE_URL = DeviceInfo.Platform == DevicePlatform.Android ? @"http://10.0.2.2.5062":@"http://localhost:5062";
+        static string URL = DeviceInfo.Platform == DevicePlatform.Android ? @"http://10.0.2.2:5062/api/FoundIt/" : @"http://localhost:5062/api/FoundIt/";
+        static string IMAGE_URL = DeviceInfo.Platform == DevicePlatform.Android ? @"http://10.0.2.2.5062/Images/": @"http://localhost:5062/Images/";
         public FoundItService()
         {
             _httpClient = new HttpClient();
@@ -124,13 +124,22 @@ namespace FoundIt.Services
         }
 
        
-             public async Task<bool> CreateNewPostAsync(Post post, FileResult file)
+             public async Task<bool> CreateNewPostAsync(Post post)
         {
             try
             {
+                var content = new MultipartFormDataContent();
+                //יש תמונה
+                if (!string.IsNullOrEmpty(post.Picture))
+                //טיפול בתמונה
+                {
+                    content.Add(new StreamContent(File.OpenRead(post.Picture)), "file", Path.GetFileName(post.Picture));
+                }
+                //טיפול באובייקט פוסט
                 var jsonContent = JsonSerializer.Serialize(post, _serializerOptions);
-                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync($"{URL}Register", content);
+                //נוסיף לתוכן
+                content.Add(new StringContent(jsonContent, Encoding.UTF8, "application/json"));
+                var response = await _httpClient.PostAsync($"{URL}CreateNewPost", content);
 
                 switch (response.StatusCode)
                 {
